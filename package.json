@@ -1,0 +1,28 @@
+{
+  "name": "rel.js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "preinstall": "pnpm run generate-parser",
+
+    "generate-parser": "rimraf generated && antlr4 -Dlanguage=JavaScript -visitor -listener -o generated ./REL.g4",
+    "test": "vitest run",
+    "build": "esbuild --platform=node --outdir=dist "
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.10.0",
+  "dependencies": {
+    "antlr4": "^4.13.2",
+    "json-logic-js": "^2.0.5"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "3.2.3",
+    "esbuild": "^0.25.5",
+    "rimraf": "^6.0.1",
+    "vitest": "^3.2.3"
+  }
+}
