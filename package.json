@@ -9,7 +9,7 @@
 
     "generate-parser": "rimraf generated && antlr4 -Dlanguage=JavaScript -visitor -listener -o generated ./REL.g4",
     "test": "vitest run",
-    "build": "esbuild --platform=node --outdir=dist "
+    "test-run": "node test.js"
   },
   "keywords": [],
   "author": "",

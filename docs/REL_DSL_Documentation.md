@@ -549,7 +549,7 @@ REL maintains type information through translation:
 
 ## Grammar Reference
 
-The complete ANTLR4 grammar is available in [`REL.g4`](REL.g4:1). Key grammar rules:
+The complete ANTLR4 grammar is available in [`REL.g4`](../REL.g4:1). Key grammar rules:
 
 - **expression**: Entry point for all REL expressions
 - **conditionalExpression**: If-then-else constructs
@@ -561,4 +561,4 @@ The complete ANTLR4 grammar is available in [`REL.g4`](REL.g4:1). Key grammar ru
 - **functionCall**: Function invocations
 - **variable**: Variable references with `@` prefix
 
-This documentation covers all currently implemented features of the REL DSL. For the most up-to-date information, refer to the test suites in [`internal/translator.test.md`](internal/translator.test.md:1) and [`internal/jsonlogic.visitor.test.md`](internal/jsonlogic.visitor.test.md:1).
+This documentation covers all currently implemented features of the REL DSL. For the most up-to-date information, refer to the test suites in [`internal/translator.test.md`](../internal/translator.test.md:1) and [`internal/jsonlogic.visitor.test.md`](../internal/jsonlogic.visitor.test.md:1).

@@ -61,7 +61,7 @@ console.log(result); // "full_access"
 
 This repository includes comprehensive documentation:
 
-### 📚 [Complete DSL Documentation](REL_DSL_Documentation.md)
+### 📚 [Complete DSL Documentation](./docs/REL_DSL_Documentation.md)
 The main documentation covering:
 - Language syntax and grammar
 - All data types and operators
@@ -69,14 +69,14 @@ The main documentation covering:
 - API usage examples
 - Best practices and limitations
 
-### ⚡ [Operator Quick Reference](REL_Operator_Quick_Reference.md)
+### ⚡ [Operator Quick Reference](./docs/REL_Operator_Quick_Reference.md)
 A concise reference guide with:
 - Every operator with syntax variations
 - Practical examples for each operator
 - Precedence rules and tips
 - Quick lookup for all functions
 
-### 💡 [Practical Examples](REL_Examples.md)
+### 💡 [Practical Examples](./docs/REL_Examples.md)
 Real-world examples including:
 - User management and authorization
 - E-commerce and pricing logic
@@ -202,6 +202,47 @@ const result = translate('@age >= 21 and @hasLicense == true');
 // }
 ```
 
+### `convertFromJsonLogic(jsonLogic)`
+
+Converts a JSONLogic object back to a REL expression string.
+
+**Parameters:**
+- `jsonLogic` (object): The JSONLogic object to convert
+
+**Returns:**
+- `string`: The equivalent REL expression
+
+**Example:**
+```javascript
+const jsonLogic = {
+  "and": [
+    {">=": [{"var": "age"}, 21]},
+    {"==": [{"var": "hasLicense"}, true]}
+  ]
+};
+
+const relExpression = convertFromJsonLogic(jsonLogic);
+console.log(relExpression);
+// Output: "@age >= 21 and @hasLicense == true"
+```
+
+### Round-trip Conversion
+
+You can convert expressions in both directions:
+
+```javascript
+import { translate, convertFromJsonLogic } from 'rel.js';
+
+// REL → JSONLogic → REL
+const originalRel = '@user.role == "admin" and @user.isActive';
+const jsonLogicResult = translate(originalRel);
+const convertedBackToRel = convertFromJsonLogic(jsonLogicResult.jsonLogic);
+
+console.log('Original:', originalRel);
+console.log('JSONLogic:', JSON.stringify(jsonLogicResult.jsonLogic, null, 2));
+console.log('Converted back:', convertedBackToRel);
+```
+
 ## Grammar
 
 REL is built using ANTLR4 grammar. The complete grammar definition is available in [`REL.g4`](REL.g4).
@@ -300,9 +341,9 @@ ISC License - see LICENSE file for details.
 
 ## Support
 
-- 📖 [Complete Documentation](REL_DSL_Documentation.md)
-- ⚡ [Quick Reference](REL_Operator_Quick_Reference.md)
-- 💡 [Examples](REL_Examples.md)
+- 📖 [Complete Documentation](./docs/REL_DSL_Documentation.md)
+- ⚡ [Quick Reference](./docs/REL_Operator_Quick_Reference.md)
+- 💡 [Examples](./docs/REL_Examples.md)
 - 🐛 [Issue Tracker](https://github.com/your-repo/rel.js/issues)
 
 ---
