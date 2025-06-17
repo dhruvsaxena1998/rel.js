@@ -6,7 +6,10 @@ import JSONLogicVisitor from './jsonlogic.visitor.js'
 /**
  * Main translation function
  * @param {string} expression - The REL expression to translate
- * @returns {object} - Translation result with JSONLogic schema
+ * @returns {{
+ *  expression: string
+ *  jsonLogic: object
+ * }} - Translation result with JSONLogic schema
  */
 export function translate(expression) {
     try {

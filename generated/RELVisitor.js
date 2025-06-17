@@ -282,6 +282,18 @@ export default class RELVisitor extends antlr4.tree.ParseTreeVisitor {
 	}
 
 
+	// Visit a parse tree produced by RELParser#PlaceholderLiteral.
+	visitPlaceholderLiteral(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by RELParser#placeholder.
+	visitPlaceholder(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
 	// Visit a parse tree produced by RELParser#array.
 	visitArray(ctx) {
 	  return this.visitChildren(ctx);

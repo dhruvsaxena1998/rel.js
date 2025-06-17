@@ -14,6 +14,7 @@ This document provides real-world examples of REL (Rule Expression Language) exp
 8. [String Processing](#string-processing)
 9. [Complex Conditional Logic](#complex-conditional-logic)
 10. [Integration Examples](#integration-examples)
+11. [Placeholder Examples](#placeholder-examples)
 
 ## User Management
 
@@ -595,4 +596,127 @@ else
     "none"
 ```
 
-These examples demonstrate the versatility and power of REL for expressing complex business logic in a readable, maintainable format. Each example can be easily modified and extended to fit specific business requirements.
+## Placeholder Examples
+
+### Configuration-Driven Rules
+```rel
+// Environment-specific thresholds
+@user.loginAttempts > {MAX_LOGIN_ATTEMPTS} and
+@user.accountAge < {MIN_ACCOUNT_AGE_DAYS}
+
+// Multi-tenant pricing
+if @tenant.tier == {ENTERPRISE_TIER} then
+    @basePrice * {ENTERPRISE_DISCOUNT}
+elseif @tenant.tier == {BUSINESS_TIER} then
+    @basePrice * {BUSINESS_DISCOUNT}
+else
+    @basePrice
+```
+
+### A/B Testing with Placeholders
+```rel
+// Feature flag with dynamic rollout percentage
+@user.id % 100 < {FEATURE_ROLLOUT_PERCENTAGE} and
+@user.country in [{TARGET_COUNTRY_1}, {TARGET_COUNTRY_2}] and
+@user.accountType == {ELIGIBLE_ACCOUNT_TYPE}
+
+// Dynamic content testing
+if @experiment.variant == {VARIANT_A} then
+    @content.title == {TITLE_A} and @content.cta == {CTA_A}
+elseif @experiment.variant == {VARIANT_B} then
+    @content.title == {TITLE_B} and @content.cta == {CTA_B}
+else
+    @content.title == {DEFAULT_TITLE} and @content.cta == {DEFAULT_CTA}
+```
+
+### Dynamic Business Rules
+```rel
+// Configurable approval workflows
+if @request.amount <= {AUTO_APPROVE_LIMIT} then
+    "auto_approved"
+elseif @request.amount <= {MANAGER_APPROVE_LIMIT} then
+    if @user.role in [{MANAGER_ROLE}, {DIRECTOR_ROLE}] then
+        "approved"
+    else
+        "requires_manager_approval"
+else
+    "requires_director_approval"
+
+// Seasonal pricing adjustments
+if @product.category in [{SEASONAL_CATEGORY_1}, {SEASONAL_CATEGORY_2}] then
+    if @currentDate between {SEASON_START} and {SEASON_END} then
+        @product.price * {SEASONAL_MULTIPLIER}
+    else
+        @product.price
+else
+    @product.price
+```
+
+### Multi-Environment Configurations
+```rel
+// Database connection rules
+if @environment == {PRODUCTION_ENV} then
+    @connection.maxRetries <= {PROD_MAX_RETRIES} and
+    @connection.timeout <= {PROD_TIMEOUT}
+elseif @environment == {STAGING_ENV} then
+    @connection.maxRetries <= {STAGING_MAX_RETRIES} and
+    @connection.timeout <= {STAGING_TIMEOUT}
+else
+    @connection.maxRetries <= {DEV_MAX_RETRIES} and
+    @connection.timeout <= {DEV_TIMEOUT}
+
+// Feature availability by region
+@user.region in [{AVAILABLE_REGION_1}, {AVAILABLE_REGION_2}] and
+@feature.name in [{ENABLED_FEATURE_1}, {ENABLED_FEATURE_2}] and
+@user.subscriptionLevel >= {MIN_SUBSCRIPTION_LEVEL}
+```
+
+### Dynamic Content Filtering
+```rel
+// Age-appropriate content with configurable ratings
+if @user.age >= {ADULT_AGE_THRESHOLD} then
+    @content.rating in [{ADULT_RATING_1}, {ADULT_RATING_2}, {ADULT_RATING_3}]
+elseif @user.age >= {TEEN_AGE_THRESHOLD} then
+    @content.rating in [{TEEN_RATING_1}, {TEEN_RATING_2}]
+else
+    @content.rating == {CHILD_RATING}
+
+// Personalized product recommendations
+filter(@products,
+    product.category in [{PREFERRED_CATEGORY_1}, {PREFERRED_CATEGORY_2}] and
+    product.price between {MIN_PRICE_RANGE} and {MAX_PRICE_RANGE} and
+    product.rating >= {MIN_RATING_THRESHOLD} and
+    product.brand in [{TRUSTED_BRAND_1}, {TRUSTED_BRAND_2}]
+)
+```
+
+### Runtime Parameter Substitution
+```javascript
+// Example of how placeholders work with runtime substitution
+import { translate } from 'rel.js';
+import jsonLogic from 'json-logic-js';
+
+// Define rule with placeholders
+const rule = translate('@age > {MIN_AGE} and @role == {REQUIRED_ROLE}');
+
+// Runtime configuration
+const config = {
+    MIN_AGE: 21,
+    REQUIRED_ROLE: "admin"
+};
+
+// Substitute placeholders in JSONLogic
+let jsonLogicRule = JSON.stringify(rule.jsonLogic);
+Object.entries(config).forEach(([key, value]) => {
+    const placeholder = `{${key}}`;
+    const replacement = typeof value === 'string' ? `"${value}"` : value;
+    jsonLogicRule = jsonLogicRule.replaceAll(`"${placeholder}"`, replacement);
+});
+
+// Apply rule with data
+const data = { age: 25, role: "admin" };
+const result = jsonLogic.apply(JSON.parse(jsonLogicRule), data);
+console.log(result); // true
+```
+
+These examples demonstrate the versatility and power of REL for expressing complex business logic in a readable, maintainable format. The placeholder functionality adds another layer of flexibility, enabling configuration-driven rules that can adapt to different environments, tenants, and runtime conditions. Each example can be easily modified and extended to fit specific business requirements.

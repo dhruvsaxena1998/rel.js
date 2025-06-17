@@ -4,87 +4,89 @@ import antlr4 from 'antlr4';
 import RELListener from './RELListener.js';
 import RELVisitor from './RELVisitor.js';
 
-const serializedATN = [4,1,54,260,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,
+const serializedATN = [4,1,55,265,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,
 4,2,5,7,5,2,6,7,6,2,7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,
-2,13,7,13,2,14,7,14,2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,1,
-0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,1,53,8,1,10,1,12,1,56,9,
-1,1,1,1,1,1,1,1,1,3,1,62,8,1,1,2,1,2,1,2,1,2,1,2,1,2,5,2,70,8,2,10,2,12,
-2,73,9,2,1,3,1,3,1,3,1,3,1,3,1,3,5,3,81,8,3,10,3,12,3,84,9,3,1,4,1,4,1,4,
-1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,5,4,101,8,4,10,4,12,4,104,
-9,4,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,
-1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,5,5,139,
-8,5,10,5,12,5,142,9,5,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,5,6,153,8,6,10,
-6,12,6,156,9,6,1,7,1,7,1,7,1,7,1,7,1,7,1,7,1,7,1,7,1,7,1,7,1,7,5,7,170,8,
-7,10,7,12,7,173,9,7,1,8,1,8,1,8,1,8,1,8,3,8,180,8,8,1,9,1,9,1,9,1,9,1,9,
-1,9,5,9,188,8,9,10,9,12,9,191,9,9,1,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,
-3,10,201,8,10,1,11,1,11,1,12,1,12,1,12,1,13,1,13,1,13,5,13,211,8,13,10,13,
-12,13,214,9,13,1,14,1,14,1,14,1,14,3,14,220,8,14,1,15,1,15,1,15,1,15,5,15,
-226,8,15,10,15,12,15,229,9,15,3,15,231,8,15,1,15,1,15,1,16,1,16,1,16,1,16,
-1,16,5,16,240,8,16,10,16,12,16,243,9,16,3,16,245,8,16,1,16,1,16,1,17,1,17,
-1,18,1,18,1,19,1,19,1,19,1,19,1,19,3,19,258,8,19,1,19,0,7,4,6,8,10,12,14,
-18,20,0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,0,2,1,0,2,8,
-1,0,9,10,280,0,40,1,0,0,0,2,61,1,0,0,0,4,63,1,0,0,0,6,74,1,0,0,0,8,85,1,
-0,0,0,10,105,1,0,0,0,12,143,1,0,0,0,14,157,1,0,0,0,16,179,1,0,0,0,18,181,
-1,0,0,0,20,200,1,0,0,0,22,202,1,0,0,0,24,204,1,0,0,0,26,207,1,0,0,0,28,219,
-1,0,0,0,30,221,1,0,0,0,32,234,1,0,0,0,34,248,1,0,0,0,36,250,1,0,0,0,38,257,
-1,0,0,0,40,41,3,2,1,0,41,42,5,0,0,1,42,1,1,0,0,0,43,44,5,13,0,0,44,45,3,
-4,2,0,45,46,5,14,0,0,46,54,3,2,1,0,47,48,5,16,0,0,48,49,3,4,2,0,49,50,5,
-14,0,0,50,51,3,2,1,0,51,53,1,0,0,0,52,47,1,0,0,0,53,56,1,0,0,0,54,52,1,0,
-0,0,54,55,1,0,0,0,55,57,1,0,0,0,56,54,1,0,0,0,57,58,5,15,0,0,58,59,3,2,1,
-0,59,62,1,0,0,0,60,62,3,4,2,0,61,43,1,0,0,0,61,60,1,0,0,0,62,3,1,0,0,0,63,
-64,6,2,-1,0,64,65,3,6,3,0,65,71,1,0,0,0,66,67,10,2,0,0,67,68,5,17,0,0,68,
-70,3,6,3,0,69,66,1,0,0,0,70,73,1,0,0,0,71,69,1,0,0,0,71,72,1,0,0,0,72,5,
-1,0,0,0,73,71,1,0,0,0,74,75,6,3,-1,0,75,76,3,8,4,0,76,82,1,0,0,0,77,78,10,
-2,0,0,78,79,5,18,0,0,79,81,3,8,4,0,80,77,1,0,0,0,81,84,1,0,0,0,82,80,1,0,
-0,0,82,83,1,0,0,0,83,7,1,0,0,0,84,82,1,0,0,0,85,86,6,4,-1,0,86,87,3,10,5,
-0,87,102,1,0,0,0,88,89,10,5,0,0,89,90,5,19,0,0,90,101,3,10,5,0,91,92,10,
-4,0,0,92,93,5,21,0,0,93,101,3,10,5,0,94,95,10,3,0,0,95,96,5,20,0,0,96,101,
-3,10,5,0,97,98,10,2,0,0,98,99,5,22,0,0,99,101,3,10,5,0,100,88,1,0,0,0,100,
-91,1,0,0,0,100,94,1,0,0,0,100,97,1,0,0,0,101,104,1,0,0,0,102,100,1,0,0,0,
-102,103,1,0,0,0,103,9,1,0,0,0,104,102,1,0,0,0,105,106,6,5,-1,0,106,107,3,
-12,6,0,107,140,1,0,0,0,108,109,10,10,0,0,109,110,5,23,0,0,110,139,3,12,6,
-0,111,112,10,9,0,0,112,113,5,24,0,0,113,139,3,12,6,0,114,115,10,8,0,0,115,
-116,5,25,0,0,116,139,3,12,6,0,117,118,10,7,0,0,118,119,5,26,0,0,119,139,
-3,12,6,0,120,121,10,6,0,0,121,122,5,27,0,0,122,123,3,12,6,0,123,124,5,18,
-0,0,124,125,3,12,6,0,125,139,1,0,0,0,126,127,10,5,0,0,127,128,5,28,0,0,128,
-139,3,12,6,0,129,130,10,4,0,0,130,131,5,29,0,0,131,139,3,12,6,0,132,133,
-10,3,0,0,133,134,5,30,0,0,134,139,3,12,6,0,135,136,10,2,0,0,136,137,5,31,
-0,0,137,139,3,12,6,0,138,108,1,0,0,0,138,111,1,0,0,0,138,114,1,0,0,0,138,
-117,1,0,0,0,138,120,1,0,0,0,138,126,1,0,0,0,138,129,1,0,0,0,138,132,1,0,
-0,0,138,135,1,0,0,0,139,142,1,0,0,0,140,138,1,0,0,0,140,141,1,0,0,0,141,
-11,1,0,0,0,142,140,1,0,0,0,143,144,6,6,-1,0,144,145,3,14,7,0,145,154,1,0,
-0,0,146,147,10,3,0,0,147,148,5,34,0,0,148,153,3,14,7,0,149,150,10,2,0,0,
-150,151,5,35,0,0,151,153,3,14,7,0,152,146,1,0,0,0,152,149,1,0,0,0,153,156,
-1,0,0,0,154,152,1,0,0,0,154,155,1,0,0,0,155,13,1,0,0,0,156,154,1,0,0,0,157,
-158,6,7,-1,0,158,159,3,16,8,0,159,171,1,0,0,0,160,161,10,4,0,0,161,162,5,
-36,0,0,162,170,3,16,8,0,163,164,10,3,0,0,164,165,5,37,0,0,165,170,3,16,8,
-0,166,167,10,2,0,0,167,168,5,38,0,0,168,170,3,16,8,0,169,160,1,0,0,0,169,
-163,1,0,0,0,169,166,1,0,0,0,170,173,1,0,0,0,171,169,1,0,0,0,171,172,1,0,
-0,0,172,15,1,0,0,0,173,171,1,0,0,0,174,175,5,32,0,0,175,180,3,16,8,0,176,
-177,5,33,0,0,177,180,3,16,8,0,178,180,3,18,9,0,179,174,1,0,0,0,179,176,1,
-0,0,0,179,178,1,0,0,0,180,17,1,0,0,0,181,182,6,9,-1,0,182,183,3,20,10,0,
-183,189,1,0,0,0,184,185,10,2,0,0,185,186,5,40,0,0,186,188,5,51,0,0,187,184,
-1,0,0,0,188,191,1,0,0,0,189,187,1,0,0,0,189,190,1,0,0,0,190,19,1,0,0,0,191,
-189,1,0,0,0,192,201,3,24,12,0,193,201,3,22,11,0,194,201,3,28,14,0,195,201,
-3,32,16,0,196,197,5,42,0,0,197,198,3,2,1,0,198,199,5,43,0,0,199,201,1,0,
-0,0,200,192,1,0,0,0,200,193,1,0,0,0,200,194,1,0,0,0,200,195,1,0,0,0,200,
-196,1,0,0,0,201,21,1,0,0,0,202,203,5,51,0,0,203,23,1,0,0,0,204,205,5,1,0,
-0,205,206,3,26,13,0,206,25,1,0,0,0,207,212,5,51,0,0,208,209,5,40,0,0,209,
-211,5,51,0,0,210,208,1,0,0,0,211,214,1,0,0,0,212,210,1,0,0,0,212,213,1,0,
-0,0,213,27,1,0,0,0,214,212,1,0,0,0,215,220,5,48,0,0,216,220,5,49,0,0,217,
-220,5,50,0,0,218,220,3,30,15,0,219,215,1,0,0,0,219,216,1,0,0,0,219,217,1,
-0,0,0,219,218,1,0,0,0,220,29,1,0,0,0,221,230,5,44,0,0,222,227,3,2,1,0,223,
-224,5,39,0,0,224,226,3,2,1,0,225,223,1,0,0,0,226,229,1,0,0,0,227,225,1,0,
-0,0,227,228,1,0,0,0,228,231,1,0,0,0,229,227,1,0,0,0,230,222,1,0,0,0,230,
-231,1,0,0,0,231,232,1,0,0,0,232,233,5,45,0,0,233,31,1,0,0,0,234,235,3,38,
-19,0,235,244,5,42,0,0,236,241,3,2,1,0,237,238,5,39,0,0,238,240,3,2,1,0,239,
-237,1,0,0,0,240,243,1,0,0,0,241,239,1,0,0,0,241,242,1,0,0,0,242,245,1,0,
-0,0,243,241,1,0,0,0,244,236,1,0,0,0,244,245,1,0,0,0,245,246,1,0,0,0,246,
-247,5,43,0,0,247,33,1,0,0,0,248,249,7,0,0,0,249,35,1,0,0,0,250,251,7,1,0,
-0,251,37,1,0,0,0,252,258,5,11,0,0,253,258,5,12,0,0,254,258,3,36,18,0,255,
-258,3,34,17,0,256,258,5,51,0,0,257,252,1,0,0,0,257,253,1,0,0,0,257,254,1,
-0,0,0,257,255,1,0,0,0,257,256,1,0,0,0,258,39,1,0,0,0,22,54,61,71,82,100,
-102,138,140,152,154,169,171,179,189,200,212,219,227,230,241,244,257];
+2,13,7,13,2,14,7,14,2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,2,
+20,7,20,1,0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,1,55,8,1,10,1,
+12,1,58,9,1,1,1,1,1,1,1,1,1,3,1,64,8,1,1,2,1,2,1,2,1,2,1,2,1,2,5,2,72,8,
+2,10,2,12,2,75,9,2,1,3,1,3,1,3,1,3,1,3,1,3,5,3,83,8,3,10,3,12,3,86,9,3,1,
+4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,5,4,103,8,4,10,
+4,12,4,106,9,4,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,
+5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,
+5,5,5,141,8,5,10,5,12,5,144,9,5,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,5,6,
+155,8,6,10,6,12,6,158,9,6,1,7,1,7,1,7,1,7,1,7,1,7,1,7,1,7,1,7,1,7,1,7,1,
+7,5,7,172,8,7,10,7,12,7,175,9,7,1,8,1,8,1,8,1,8,1,8,3,8,182,8,8,1,9,1,9,
+1,9,1,9,1,9,1,9,5,9,190,8,9,10,9,12,9,193,9,9,1,10,1,10,1,10,1,10,1,10,1,
+10,1,10,1,10,3,10,203,8,10,1,11,1,11,1,12,1,12,1,12,1,13,1,13,1,13,5,13,
+213,8,13,10,13,12,13,216,9,13,1,14,1,14,1,14,1,14,1,14,3,14,223,8,14,1,15,
+1,15,1,16,1,16,1,16,1,16,5,16,231,8,16,10,16,12,16,234,9,16,3,16,236,8,16,
+1,16,1,16,1,17,1,17,1,17,1,17,1,17,5,17,245,8,17,10,17,12,17,248,9,17,3,
+17,250,8,17,1,17,1,17,1,18,1,18,1,19,1,19,1,20,1,20,1,20,1,20,1,20,3,20,
+263,8,20,1,20,0,7,4,6,8,10,12,14,18,21,0,2,4,6,8,10,12,14,16,18,20,22,24,
+26,28,30,32,34,36,38,40,0,2,1,0,2,8,1,0,9,10,285,0,42,1,0,0,0,2,63,1,0,0,
+0,4,65,1,0,0,0,6,76,1,0,0,0,8,87,1,0,0,0,10,107,1,0,0,0,12,145,1,0,0,0,14,
+159,1,0,0,0,16,181,1,0,0,0,18,183,1,0,0,0,20,202,1,0,0,0,22,204,1,0,0,0,
+24,206,1,0,0,0,26,209,1,0,0,0,28,222,1,0,0,0,30,224,1,0,0,0,32,226,1,0,0,
+0,34,239,1,0,0,0,36,253,1,0,0,0,38,255,1,0,0,0,40,262,1,0,0,0,42,43,3,2,
+1,0,43,44,5,0,0,1,44,1,1,0,0,0,45,46,5,13,0,0,46,47,3,4,2,0,47,48,5,14,0,
+0,48,56,3,2,1,0,49,50,5,16,0,0,50,51,3,4,2,0,51,52,5,14,0,0,52,53,3,2,1,
+0,53,55,1,0,0,0,54,49,1,0,0,0,55,58,1,0,0,0,56,54,1,0,0,0,56,57,1,0,0,0,
+57,59,1,0,0,0,58,56,1,0,0,0,59,60,5,15,0,0,60,61,3,2,1,0,61,64,1,0,0,0,62,
+64,3,4,2,0,63,45,1,0,0,0,63,62,1,0,0,0,64,3,1,0,0,0,65,66,6,2,-1,0,66,67,
+3,6,3,0,67,73,1,0,0,0,68,69,10,2,0,0,69,70,5,17,0,0,70,72,3,6,3,0,71,68,
+1,0,0,0,72,75,1,0,0,0,73,71,1,0,0,0,73,74,1,0,0,0,74,5,1,0,0,0,75,73,1,0,
+0,0,76,77,6,3,-1,0,77,78,3,8,4,0,78,84,1,0,0,0,79,80,10,2,0,0,80,81,5,18,
+0,0,81,83,3,8,4,0,82,79,1,0,0,0,83,86,1,0,0,0,84,82,1,0,0,0,84,85,1,0,0,
+0,85,7,1,0,0,0,86,84,1,0,0,0,87,88,6,4,-1,0,88,89,3,10,5,0,89,104,1,0,0,
+0,90,91,10,5,0,0,91,92,5,19,0,0,92,103,3,10,5,0,93,94,10,4,0,0,94,95,5,21,
+0,0,95,103,3,10,5,0,96,97,10,3,0,0,97,98,5,20,0,0,98,103,3,10,5,0,99,100,
+10,2,0,0,100,101,5,22,0,0,101,103,3,10,5,0,102,90,1,0,0,0,102,93,1,0,0,0,
+102,96,1,0,0,0,102,99,1,0,0,0,103,106,1,0,0,0,104,102,1,0,0,0,104,105,1,
+0,0,0,105,9,1,0,0,0,106,104,1,0,0,0,107,108,6,5,-1,0,108,109,3,12,6,0,109,
+142,1,0,0,0,110,111,10,10,0,0,111,112,5,23,0,0,112,141,3,12,6,0,113,114,
+10,9,0,0,114,115,5,24,0,0,115,141,3,12,6,0,116,117,10,8,0,0,117,118,5,25,
+0,0,118,141,3,12,6,0,119,120,10,7,0,0,120,121,5,26,0,0,121,141,3,12,6,0,
+122,123,10,6,0,0,123,124,5,27,0,0,124,125,3,12,6,0,125,126,5,18,0,0,126,
+127,3,12,6,0,127,141,1,0,0,0,128,129,10,5,0,0,129,130,5,28,0,0,130,141,3,
+12,6,0,131,132,10,4,0,0,132,133,5,29,0,0,133,141,3,12,6,0,134,135,10,3,0,
+0,135,136,5,30,0,0,136,141,3,12,6,0,137,138,10,2,0,0,138,139,5,31,0,0,139,
+141,3,12,6,0,140,110,1,0,0,0,140,113,1,0,0,0,140,116,1,0,0,0,140,119,1,0,
+0,0,140,122,1,0,0,0,140,128,1,0,0,0,140,131,1,0,0,0,140,134,1,0,0,0,140,
+137,1,0,0,0,141,144,1,0,0,0,142,140,1,0,0,0,142,143,1,0,0,0,143,11,1,0,0,
+0,144,142,1,0,0,0,145,146,6,6,-1,0,146,147,3,14,7,0,147,156,1,0,0,0,148,
+149,10,3,0,0,149,150,5,34,0,0,150,155,3,14,7,0,151,152,10,2,0,0,152,153,
+5,35,0,0,153,155,3,14,7,0,154,148,1,0,0,0,154,151,1,0,0,0,155,158,1,0,0,
+0,156,154,1,0,0,0,156,157,1,0,0,0,157,13,1,0,0,0,158,156,1,0,0,0,159,160,
+6,7,-1,0,160,161,3,16,8,0,161,173,1,0,0,0,162,163,10,4,0,0,163,164,5,36,
+0,0,164,172,3,16,8,0,165,166,10,3,0,0,166,167,5,37,0,0,167,172,3,16,8,0,
+168,169,10,2,0,0,169,170,5,38,0,0,170,172,3,16,8,0,171,162,1,0,0,0,171,165,
+1,0,0,0,171,168,1,0,0,0,172,175,1,0,0,0,173,171,1,0,0,0,173,174,1,0,0,0,
+174,15,1,0,0,0,175,173,1,0,0,0,176,177,5,32,0,0,177,182,3,16,8,0,178,179,
+5,33,0,0,179,182,3,16,8,0,180,182,3,18,9,0,181,176,1,0,0,0,181,178,1,0,0,
+0,181,180,1,0,0,0,182,17,1,0,0,0,183,184,6,9,-1,0,184,185,3,20,10,0,185,
+191,1,0,0,0,186,187,10,2,0,0,187,188,5,40,0,0,188,190,5,51,0,0,189,186,1,
+0,0,0,190,193,1,0,0,0,191,189,1,0,0,0,191,192,1,0,0,0,192,19,1,0,0,0,193,
+191,1,0,0,0,194,203,3,24,12,0,195,203,3,22,11,0,196,203,3,28,14,0,197,203,
+3,34,17,0,198,199,5,42,0,0,199,200,3,2,1,0,200,201,5,43,0,0,201,203,1,0,
+0,0,202,194,1,0,0,0,202,195,1,0,0,0,202,196,1,0,0,0,202,197,1,0,0,0,202,
+198,1,0,0,0,203,21,1,0,0,0,204,205,5,51,0,0,205,23,1,0,0,0,206,207,5,1,0,
+0,207,208,3,26,13,0,208,25,1,0,0,0,209,214,5,51,0,0,210,211,5,40,0,0,211,
+213,5,51,0,0,212,210,1,0,0,0,213,216,1,0,0,0,214,212,1,0,0,0,214,215,1,0,
+0,0,215,27,1,0,0,0,216,214,1,0,0,0,217,223,5,48,0,0,218,223,5,49,0,0,219,
+223,5,50,0,0,220,223,3,32,16,0,221,223,3,30,15,0,222,217,1,0,0,0,222,218,
+1,0,0,0,222,219,1,0,0,0,222,220,1,0,0,0,222,221,1,0,0,0,223,29,1,0,0,0,224,
+225,5,52,0,0,225,31,1,0,0,0,226,235,5,44,0,0,227,232,3,2,1,0,228,229,5,39,
+0,0,229,231,3,2,1,0,230,228,1,0,0,0,231,234,1,0,0,0,232,230,1,0,0,0,232,
+233,1,0,0,0,233,236,1,0,0,0,234,232,1,0,0,0,235,227,1,0,0,0,235,236,1,0,
+0,0,236,237,1,0,0,0,237,238,5,45,0,0,238,33,1,0,0,0,239,240,3,40,20,0,240,
+249,5,42,0,0,241,246,3,2,1,0,242,243,5,39,0,0,243,245,3,2,1,0,244,242,1,
+0,0,0,245,248,1,0,0,0,246,244,1,0,0,0,246,247,1,0,0,0,247,250,1,0,0,0,248,
+246,1,0,0,0,249,241,1,0,0,0,249,250,1,0,0,0,250,251,1,0,0,0,251,252,5,43,
+0,0,252,35,1,0,0,0,253,254,7,0,0,0,254,37,1,0,0,0,255,256,7,1,0,0,256,39,
+1,0,0,0,257,263,5,11,0,0,258,263,5,12,0,0,259,263,3,38,19,0,260,263,3,36,
+18,0,261,263,5,51,0,0,262,257,1,0,0,0,262,258,1,0,0,0,262,259,1,0,0,0,262,
+260,1,0,0,0,262,261,1,0,0,0,263,41,1,0,0,0,22,56,63,73,84,102,104,140,142,
+154,156,171,173,181,191,202,214,222,232,235,246,249,262];
 
 
 const atn = new antlr4.atn.ATNDeserializer().deserialize(serializedATN);
@@ -114,14 +116,15 @@ export default class RELParser extends antlr4.Parser {
                              "DIVIDE", "MODULO", "COMMA", "DOT", "SEMICOLON", 
                              "LPAREN", "RPAREN", "LBRACKET", "RBRACKET", 
                              "LBRACE", "RBRACE", "NUMBER", "STRING", "BOOLEAN", 
-                             "IDENTIFIER", "WS", "LINE_COMMENT", "BLOCK_COMMENT" ];
+                             "IDENTIFIER", "PLACEHOLDER", "WS", "LINE_COMMENT", 
+                             "BLOCK_COMMENT" ];
     static ruleNames = [ "expression", "conditionalExpression", "logicalOrExpression", 
                          "logicalAndExpression", "equalityExpression", "relationalExpression", 
                          "additiveExpression", "multiplicativeExpression", 
                          "unaryExpression", "postfixExpression", "primaryExpression", 
                          "bareIdentifier", "variable", "variableName", "literal", 
-                         "array", "functionCall", "arrayMethods", "stringMethods", 
-                         "functionName" ];
+                         "placeholder", "array", "functionCall", "arrayMethods", 
+                         "stringMethods", "functionName" ];
 
     constructor(input) {
         super(input);
@@ -251,9 +254,9 @@ export default class RELParser extends antlr4.Parser {
 	    this.enterRule(localctx, 0, RELParser.RULE_expression);
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 40;
+	        this.state = 42;
 	        this.conditionalExpression();
-	        this.state = 41;
+	        this.state = 43;
 	        this.match(RELParser.EOF);
 	    } catch (re) {
 	    	if(re instanceof antlr4.error.RecognitionException) {
@@ -276,39 +279,39 @@ export default class RELParser extends antlr4.Parser {
 	    this.enterRule(localctx, 2, RELParser.RULE_conditionalExpression);
 	    var _la = 0;
 	    try {
-	        this.state = 61;
+	        this.state = 63;
 	        this._errHandler.sync(this);
 	        switch(this._input.LA(1)) {
 	        case 13:
 	            localctx = new IfThenElseContext(this, localctx);
 	            this.enterOuterAlt(localctx, 1);
-	            this.state = 43;
-	            this.match(RELParser.IF);
-	            this.state = 44;
-	            this.logicalOrExpression(0);
 	            this.state = 45;
-	            this.match(RELParser.THEN);
+	            this.match(RELParser.IF);
 	            this.state = 46;
+	            this.logicalOrExpression(0);
+	            this.state = 47;
+	            this.match(RELParser.THEN);
+	            this.state = 48;
 	            this.conditionalExpression();
-	            this.state = 54;
+	            this.state = 56;
 	            this._errHandler.sync(this);
 	            _la = this._input.LA(1);
 	            while(_la===16) {
-	                this.state = 47;
-	                this.match(RELParser.ELSEIF);
-	                this.state = 48;
-	                this.logicalOrExpression(0);
 	                this.state = 49;
-	                this.match(RELParser.THEN);
+	                this.match(RELParser.ELSEIF);
 	                this.state = 50;
+	                this.logicalOrExpression(0);
+	                this.state = 51;
+	                this.match(RELParser.THEN);
+	                this.state = 52;
 	                this.conditionalExpression();
-	                this.state = 56;
+	                this.state = 58;
 	                this._errHandler.sync(this);
 	                _la = this._input.LA(1);
 	            }
-	            this.state = 57;
+	            this.state = 59;
 	            this.match(RELParser.ELSE);
-	            this.state = 58;
+	            this.state = 60;
 	            this.conditionalExpression();
 	            break;
 	        case 1:
@@ -331,9 +334,10 @@ export default class RELParser extends antlr4.Parser {
 	        case 49:
 	        case 50:
 	        case 51:
+	        case 52:
 	            localctx = new LogicalOrContext(this, localctx);
 	            this.enterOuterAlt(localctx, 2);
-	            this.state = 60;
+	            this.state = 62;
 	            this.logicalOrExpression(0);
 	            break;
 	        default:
@@ -370,10 +374,10 @@ export default class RELParser extends antlr4.Parser {
 	        this._ctx = localctx;
 	        _prevctx = localctx;
 
-	        this.state = 64;
+	        this.state = 66;
 	        this.logicalAndExpression(0);
 	        this._ctx.stop = this._input.LT(-1);
-	        this.state = 71;
+	        this.state = 73;
 	        this._errHandler.sync(this);
 	        var _alt = this._interp.adaptivePredict(this._input,2,this._ctx)
 	        while(_alt!=2 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
@@ -384,16 +388,16 @@ export default class RELParser extends antlr4.Parser {
 	                _prevctx = localctx;
 	                localctx = new OrExpressionContext(this, new LogicalOrExpressionContext(this, _parentctx, _parentState));
 	                this.pushNewRecursionContext(localctx, _startState, RELParser.RULE_logicalOrExpression);
-	                this.state = 66;
+	                this.state = 68;
 	                if (!( this.precpred(this._ctx, 2))) {
 	                    throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 2)");
 	                }
-	                this.state = 67;
+	                this.state = 69;
 	                this.match(RELParser.OR);
-	                this.state = 68;
+	                this.state = 70;
 	                this.logicalAndExpression(0); 
 	            }
-	            this.state = 73;
+	            this.state = 75;
 	            this._errHandler.sync(this);
 	            _alt = this._interp.adaptivePredict(this._input,2,this._ctx);
 	        }
@@ -429,10 +433,10 @@ export default class RELParser extends antlr4.Parser {
 	        this._ctx = localctx;
 	        _prevctx = localctx;
 
-	        this.state = 75;
+	        this.state = 77;
 	        this.equalityExpression(0);
 	        this._ctx.stop = this._input.LT(-1);
-	        this.state = 82;
+	        this.state = 84;
 	        this._errHandler.sync(this);
 	        var _alt = this._interp.adaptivePredict(this._input,3,this._ctx)
 	        while(_alt!=2 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
@@ -443,16 +447,16 @@ export default class RELParser extends antlr4.Parser {
 	                _prevctx = localctx;
 	                localctx = new AndExpressionContext(this, new LogicalAndExpressionContext(this, _parentctx, _parentState));
 	                this.pushNewRecursionContext(localctx, _startState, RELParser.RULE_logicalAndExpression);
-	                this.state = 77;
+	                this.state = 79;
 	                if (!( this.precpred(this._ctx, 2))) {
 	                    throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 2)");
 	                }
-	                this.state = 78;
+	                this.state = 80;
 	                this.match(RELParser.AND);
-	                this.state = 79;
+	                this.state = 81;
 	                this.equalityExpression(0); 
 	            }
-	            this.state = 84;
+	            this.state = 86;
 	            this._errHandler.sync(this);
 	            _alt = this._interp.adaptivePredict(this._input,3,this._ctx);
 	        }
@@ -488,10 +492,10 @@ export default class RELParser extends antlr4.Parser {
 	        this._ctx = localctx;
 	        _prevctx = localctx;
 
-	        this.state = 86;
+	        this.state = 88;
 	        this.relationalExpression(0);
 	        this._ctx.stop = this._input.LT(-1);
-	        this.state = 102;
+	        this.state = 104;
 	        this._errHandler.sync(this);
 	        var _alt = this._interp.adaptivePredict(this._input,5,this._ctx)
 	        while(_alt!=2 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
@@ -500,65 +504,65 @@ export default class RELParser extends antlr4.Parser {
 	                    this.triggerExitRuleEvent();
 	                }
 	                _prevctx = localctx;
-	                this.state = 100;
+	                this.state = 102;
 	                this._errHandler.sync(this);
 	                var la_ = this._interp.adaptivePredict(this._input,4,this._ctx);
 	                switch(la_) {
 	                case 1:
 	                    localctx = new EqualExpressionContext(this, new EqualityExpressionContext(this, _parentctx, _parentState));
 	                    this.pushNewRecursionContext(localctx, _startState, RELParser.RULE_equalityExpression);
-	                    this.state = 88;
+	                    this.state = 90;
 	                    if (!( this.precpred(this._ctx, 5))) {
 	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 5)");
 	                    }
-	                    this.state = 89;
+	                    this.state = 91;
 	                    this.match(RELParser.EQ);
-	                    this.state = 90;
+	                    this.state = 92;
 	                    this.relationalExpression(0);
 	                    break;
 
 	                case 2:
 	                    localctx = new StrictEqualExpressionContext(this, new EqualityExpressionContext(this, _parentctx, _parentState));
 	                    this.pushNewRecursionContext(localctx, _startState, RELParser.RULE_equalityExpression);
-	                    this.state = 91;
+	                    this.state = 93;
 	                    if (!( this.precpred(this._ctx, 4))) {
 	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 4)");
 	                    }
-	                    this.state = 92;
+	                    this.state = 94;
 	                    this.match(RELParser.SEQ);
-	                    this.state = 93;
+	                    this.state = 95;
 	                    this.relationalExpression(0);
 	                    break;
 
 	                case 3:
 	                    localctx = new NotEqualExpressionContext(this, new EqualityExpressionContext(this, _parentctx, _parentState));
 	                    this.pushNewRecursionContext(localctx, _startState, RELParser.RULE_equalityExpression);
-	                    this.state = 94;
+	                    this.state = 96;
 	                    if (!( this.precpred(this._ctx, 3))) {
 	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 3)");
 	                    }
-	                    this.state = 95;
+	                    this.state = 97;
 	                    this.match(RELParser.NEQ);
-	                    this.state = 96;
+	                    this.state = 98;
 	                    this.relationalExpression(0);
 	                    break;
 
 	                case 4:
 	                    localctx = new StrictNotEqualExpressionContext(this, new EqualityExpressionContext(this, _parentctx, _parentState));
 	                    this.pushNewRecursionContext(localctx, _startState, RELParser.RULE_equalityExpression);
-	                    this.state = 97;
+	                    this.state = 99;
 	                    if (!( this.precpred(this._ctx, 2))) {
 	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 2)");
 	                    }
-	                    this.state = 98;
+	                    this.state = 100;
 	                    this.match(RELParser.SNEQ);
-	                    this.state = 99;
+	                    this.state = 101;
 	                    this.relationalExpression(0);
 	                    break;
 
 	                } 
 	            }
-	            this.state = 104;
+	            this.state = 106;
 	            this._errHandler.sync(this);
 	            _alt = this._interp.adaptivePredict(this._input,5,this._ctx);
 	        }
@@ -594,10 +598,10 @@ export default class RELParser extends antlr4.Parser {
 	        this._ctx = localctx;
 	        _prevctx = localctx;
 
-	        this.state = 106;
+	        this.state = 108;
 	        this.additiveExpression(0);
 	        this._ctx.stop = this._input.LT(-1);
-	        this.state = 140;
+	        this.state = 142;
 	        this._errHandler.sync(this);
 	        var _alt = this._interp.adaptivePredict(this._input,7,this._ctx)
 	        while(_alt!=2 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
@@ -606,134 +610,134 @@ export default class RELParser extends antlr4.Parser {
 	                    this.triggerExitRuleEvent();
 	                }
 	                _prevctx = localctx;
-	                this.state = 138;
+	                this.state = 140;
 	                this._errHandler.sync(this);
 	                var la_ = this._interp.adaptivePredict(this._input,6,this._ctx);
 	                switch(la_) {
 	                case 1:
 	                    localctx = new GreaterThanExpressionContext(this, new RelationalExpressionContext(this, _parentctx, _parentState));
 	                    this.pushNewRecursionContext(localctx, _startState, RELParser.RULE_relationalExpression);
-	                    this.state = 108;
+	                    this.state = 110;
 	                    if (!( this.precpred(this._ctx, 10))) {
 	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 10)");
 	                    }
-	                    this.state = 109;
+	                    this.state = 111;
 	                    this.match(RELParser.GT);
-	                    this.state = 110;
+	                    this.state = 112;
 	                    this.additiveExpression(0);
 	                    break;
 
 	                case 2:
 	                    localctx = new GreaterThanOrEqualExpressionContext(this, new RelationalExpressionContext(this, _parentctx, _parentState));
 	                    this.pushNewRecursionContext(localctx, _startState, RELParser.RULE_relationalExpression);
-	                    this.state = 111;
+	                    this.state = 113;
 	                    if (!( this.precpred(this._ctx, 9))) {
 	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 9)");
 	                    }
-	                    this.state = 112;
+	                    this.state = 114;
 	                    this.match(RELParser.GTE);
-	                    this.state = 113;
+	                    this.state = 115;
 	                    this.additiveExpression(0);
 	                    break;
 
 	                case 3:
 	                    localctx = new LessThanExpressionContext(this, new RelationalExpressionContext(this, _parentctx, _parentState));
 	                    this.pushNewRecursionContext(localctx, _startState, RELParser.RULE_relationalExpression);
-	                    this.state = 114;
+	                    this.state = 116;
 	                    if (!( this.precpred(this._ctx, 8))) {
 	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 8)");
 	                    }
-	                    this.state = 115;
+	                    this.state = 117;
 	                    this.match(RELParser.LT);
-	                    this.state = 116;
+	                    this.state = 118;
 	                    this.additiveExpression(0);
 	                    break;
 
 	                case 4:
 	                    localctx = new LessThanOrEqualExpressionContext(this, new RelationalExpressionContext(this, _parentctx, _parentState));
 	                    this.pushNewRecursionContext(localctx, _startState, RELParser.RULE_relationalExpression);
-	                    this.state = 117;
+	                    this.state = 119;
 	                    if (!( this.precpred(this._ctx, 7))) {
 	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 7)");
 	                    }
-	                    this.state = 118;
+	                    this.state = 120;
 	                    this.match(RELParser.LTE);
-	                    this.state = 119;
+	                    this.state = 121;
 	                    this.additiveExpression(0);
 	                    break;
 
 	                case 5:
 	                    localctx = new BetweenExpressionContext(this, new RelationalExpressionContext(this, _parentctx, _parentState));
 	                    this.pushNewRecursionContext(localctx, _startState, RELParser.RULE_relationalExpression);
-	                    this.state = 120;
+	                    this.state = 122;
 	                    if (!( this.precpred(this._ctx, 6))) {
 	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 6)");
 	                    }
-	                    this.state = 121;
-	                    this.match(RELParser.BETWEEN);
-	                    this.state = 122;
-	                    this.additiveExpression(0);
 	                    this.state = 123;
-	                    this.match(RELParser.AND);
+	                    this.match(RELParser.BETWEEN);
 	                    this.state = 124;
+	                    this.additiveExpression(0);
+	                    this.state = 125;
+	                    this.match(RELParser.AND);
+	                    this.state = 126;
 	                    this.additiveExpression(0);
 	                    break;
 
 	                case 6:
 	                    localctx = new InExpressionContext(this, new RelationalExpressionContext(this, _parentctx, _parentState));
 	                    this.pushNewRecursionContext(localctx, _startState, RELParser.RULE_relationalExpression);
-	                    this.state = 126;
+	                    this.state = 128;
 	                    if (!( this.precpred(this._ctx, 5))) {
 	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 5)");
 	                    }
-	                    this.state = 127;
+	                    this.state = 129;
 	                    this.match(RELParser.IN);
-	                    this.state = 128;
+	                    this.state = 130;
 	                    this.additiveExpression(0);
 	                    break;
 
 	                case 7:
 	                    localctx = new NotInExpressionContext(this, new RelationalExpressionContext(this, _parentctx, _parentState));
 	                    this.pushNewRecursionContext(localctx, _startState, RELParser.RULE_relationalExpression);
-	                    this.state = 129;
+	                    this.state = 131;
 	                    if (!( this.precpred(this._ctx, 4))) {
 	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 4)");
 	                    }
-	                    this.state = 130;
+	                    this.state = 132;
 	                    this.match(RELParser.NOT_IN);
-	                    this.state = 131;
+	                    this.state = 133;
 	                    this.additiveExpression(0);
 	                    break;
 
 	                case 8:
 	                    localctx = new StartsWithExpressionContext(this, new RelationalExpressionContext(this, _parentctx, _parentState));
 	                    this.pushNewRecursionContext(localctx, _startState, RELParser.RULE_relationalExpression);
-	                    this.state = 132;
+	                    this.state = 134;
 	                    if (!( this.precpred(this._ctx, 3))) {
 	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 3)");
 	                    }
-	                    this.state = 133;
+	                    this.state = 135;
 	                    this.match(RELParser.STARTS_WITH);
-	                    this.state = 134;
+	                    this.state = 136;
 	                    this.additiveExpression(0);
 	                    break;
 
 	                case 9:
 	                    localctx = new EndsWithExpressionContext(this, new RelationalExpressionContext(this, _parentctx, _parentState));
 	                    this.pushNewRecursionContext(localctx, _startState, RELParser.RULE_relationalExpression);
-	                    this.state = 135;
+	                    this.state = 137;
 	                    if (!( this.precpred(this._ctx, 2))) {
 	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 2)");
 	                    }
-	                    this.state = 136;
+	                    this.state = 138;
 	                    this.match(RELParser.ENDS_WITH);
-	                    this.state = 137;
+	                    this.state = 139;
 	                    this.additiveExpression(0);
 	                    break;
 
 	                } 
 	            }
-	            this.state = 142;
+	            this.state = 144;
 	            this._errHandler.sync(this);
 	            _alt = this._interp.adaptivePredict(this._input,7,this._ctx);
 	        }
@@ -769,10 +773,10 @@ export default class RELParser extends antlr4.Parser {
 	        this._ctx = localctx;
 	        _prevctx = localctx;
 
-	        this.state = 144;
+	        this.state = 146;
 	        this.multiplicativeExpression(0);
 	        this._ctx.stop = this._input.LT(-1);
-	        this.state = 154;
+	        this.state = 156;
 	        this._errHandler.sync(this);
 	        var _alt = this._interp.adaptivePredict(this._input,9,this._ctx)
 	        while(_alt!=2 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
@@ -781,39 +785,39 @@ export default class RELParser extends antlr4.Parser {
 	                    this.triggerExitRuleEvent();
 	                }
 	                _prevctx = localctx;
-	                this.state = 152;
+	                this.state = 154;
 	                this._errHandler.sync(this);
 	                var la_ = this._interp.adaptivePredict(this._input,8,this._ctx);
 	                switch(la_) {
 	                case 1:
 	                    localctx = new AddExpressionContext(this, new AdditiveExpressionContext(this, _parentctx, _parentState));
 	                    this.pushNewRecursionContext(localctx, _startState, RELParser.RULE_additiveExpression);
-	                    this.state = 146;
+	                    this.state = 148;
 	                    if (!( this.precpred(this._ctx, 3))) {
 	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 3)");
 	                    }
-	                    this.state = 147;
+	                    this.state = 149;
 	                    this.match(RELParser.PLUS);
-	                    this.state = 148;
+	                    this.state = 150;
 	                    this.multiplicativeExpression(0);
 	                    break;
 
 	                case 2:
 	                    localctx = new SubtractExpressionContext(this, new AdditiveExpressionContext(this, _parentctx, _parentState));
 	                    this.pushNewRecursionContext(localctx, _startState, RELParser.RULE_additiveExpression);
-	                    this.state = 149;
+	                    this.state = 151;
 	                    if (!( this.precpred(this._ctx, 2))) {
 	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 2)");
 	                    }
-	                    this.state = 150;
+	                    this.state = 152;
 	                    this.match(RELParser.MINUS);
-	                    this.state = 151;
+	                    this.state = 153;
 	                    this.multiplicativeExpression(0);
 	                    break;
 
 	                } 
 	            }
-	            this.state = 156;
+	            this.state = 158;
 	            this._errHandler.sync(this);
 	            _alt = this._interp.adaptivePredict(this._input,9,this._ctx);
 	        }
@@ -849,10 +853,10 @@ export default class RELParser extends antlr4.Parser {
 	        this._ctx = localctx;
 	        _prevctx = localctx;
 
-	        this.state = 158;
+	        this.state = 160;
 	        this.unaryExpression();
 	        this._ctx.stop = this._input.LT(-1);
-	        this.state = 171;
+	        this.state = 173;
 	        this._errHandler.sync(this);
 	        var _alt = this._interp.adaptivePredict(this._input,11,this._ctx)
 	        while(_alt!=2 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
@@ -861,52 +865,52 @@ export default class RELParser extends antlr4.Parser {
 	                    this.triggerExitRuleEvent();
 	                }
 	                _prevctx = localctx;
-	                this.state = 169;
+	                this.state = 171;
 	                this._errHandler.sync(this);
 	                var la_ = this._interp.adaptivePredict(this._input,10,this._ctx);
 	                switch(la_) {
 	                case 1:
 	                    localctx = new MultiplyExpressionContext(this, new MultiplicativeExpressionContext(this, _parentctx, _parentState));
 	                    this.pushNewRecursionContext(localctx, _startState, RELParser.RULE_multiplicativeExpression);
-	                    this.state = 160;
+	                    this.state = 162;
 	                    if (!( this.precpred(this._ctx, 4))) {
 	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 4)");
 	                    }
-	                    this.state = 161;
+	                    this.state = 163;
 	                    this.match(RELParser.MULTIPLY);
-	                    this.state = 162;
+	                    this.state = 164;
 	                    this.unaryExpression();
 	                    break;
 
 	                case 2:
 	                    localctx = new DivideExpressionContext(this, new MultiplicativeExpressionContext(this, _parentctx, _parentState));
 	                    this.pushNewRecursionContext(localctx, _startState, RELParser.RULE_multiplicativeExpression);
-	                    this.state = 163;
+	                    this.state = 165;
 	                    if (!( this.precpred(this._ctx, 3))) {
 	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 3)");
 	                    }
-	                    this.state = 164;
+	                    this.state = 166;
 	                    this.match(RELParser.DIVIDE);
-	                    this.state = 165;
+	                    this.state = 167;
 	                    this.unaryExpression();
 	                    break;
 
 	                case 3:
 	                    localctx = new ModuloExpressionContext(this, new MultiplicativeExpressionContext(this, _parentctx, _parentState));
 	                    this.pushNewRecursionContext(localctx, _startState, RELParser.RULE_multiplicativeExpression);
-	                    this.state = 166;
+	                    this.state = 168;
 	                    if (!( this.precpred(this._ctx, 2))) {
 	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 2)");
 	                    }
-	                    this.state = 167;
+	                    this.state = 169;
 	                    this.match(RELParser.MODULO);
-	                    this.state = 168;
+	                    this.state = 170;
 	                    this.unaryExpression();
 	                    break;
 
 	                } 
 	            }
-	            this.state = 173;
+	            this.state = 175;
 	            this._errHandler.sync(this);
 	            _alt = this._interp.adaptivePredict(this._input,11,this._ctx);
 	        }
@@ -931,23 +935,23 @@ export default class RELParser extends antlr4.Parser {
 	    let localctx = new UnaryExpressionContext(this, this._ctx, this.state);
 	    this.enterRule(localctx, 16, RELParser.RULE_unaryExpression);
 	    try {
-	        this.state = 179;
+	        this.state = 181;
 	        this._errHandler.sync(this);
 	        switch(this._input.LA(1)) {
 	        case 32:
 	            localctx = new NotExpressionContext(this, localctx);
 	            this.enterOuterAlt(localctx, 1);
-	            this.state = 174;
+	            this.state = 176;
 	            this.match(RELParser.NOT);
-	            this.state = 175;
+	            this.state = 177;
 	            this.unaryExpression();
 	            break;
 	        case 33:
 	            localctx = new DoubleNotExpressionContext(this, localctx);
 	            this.enterOuterAlt(localctx, 2);
-	            this.state = 176;
+	            this.state = 178;
 	            this.match(RELParser.DOUBLE_NOT);
-	            this.state = 177;
+	            this.state = 179;
 	            this.unaryExpression();
 	            break;
 	        case 1:
@@ -968,9 +972,10 @@ export default class RELParser extends antlr4.Parser {
 	        case 49:
 	        case 50:
 	        case 51:
+	        case 52:
 	            localctx = new PostfixContext(this, localctx);
 	            this.enterOuterAlt(localctx, 3);
-	            this.state = 178;
+	            this.state = 180;
 	            this.postfixExpression(0);
 	            break;
 	        default:
@@ -1007,10 +1012,10 @@ export default class RELParser extends antlr4.Parser {
 	        this._ctx = localctx;
 	        _prevctx = localctx;
 
-	        this.state = 182;
+	        this.state = 184;
 	        this.primaryExpression();
 	        this._ctx.stop = this._input.LT(-1);
-	        this.state = 189;
+	        this.state = 191;
 	        this._errHandler.sync(this);
 	        var _alt = this._interp.adaptivePredict(this._input,13,this._ctx)
 	        while(_alt!=2 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
@@ -1021,16 +1026,16 @@ export default class RELParser extends antlr4.Parser {
 	                _prevctx = localctx;
 	                localctx = new PropertyAccessContext(this, new PostfixExpressionContext(this, _parentctx, _parentState));
 	                this.pushNewRecursionContext(localctx, _startState, RELParser.RULE_postfixExpression);
-	                this.state = 184;
+	                this.state = 186;
 	                if (!( this.precpred(this._ctx, 2))) {
 	                    throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 2)");
 	                }
-	                this.state = 185;
+	                this.state = 187;
 	                this.match(RELParser.DOT);
-	                this.state = 186;
+	                this.state = 188;
 	                this.match(RELParser.IDENTIFIER); 
 	            }
-	            this.state = 191;
+	            this.state = 193;
 	            this._errHandler.sync(this);
 	            _alt = this._interp.adaptivePredict(this._input,13,this._ctx);
 	        }
@@ -1055,46 +1060,46 @@ export default class RELParser extends antlr4.Parser {
 	    let localctx = new PrimaryExpressionContext(this, this._ctx, this.state);
 	    this.enterRule(localctx, 20, RELParser.RULE_primaryExpression);
 	    try {
-	        this.state = 200;
+	        this.state = 202;
 	        this._errHandler.sync(this);
 	        var la_ = this._interp.adaptivePredict(this._input,14,this._ctx);
 	        switch(la_) {
 	        case 1:
 	            localctx = new VariableExpressionContext(this, localctx);
 	            this.enterOuterAlt(localctx, 1);
-	            this.state = 192;
+	            this.state = 194;
 	            this.variable();
 	            break;
 
 	        case 2:
 	            localctx = new BareIdentifierExpressionContext(this, localctx);
 	            this.enterOuterAlt(localctx, 2);
-	            this.state = 193;
+	            this.state = 195;
 	            this.bareIdentifier();
 	            break;
 
 	        case 3:
 	            localctx = new LiteralExpressionContext(this, localctx);
 	            this.enterOuterAlt(localctx, 3);
-	            this.state = 194;
+	            this.state = 196;
 	            this.literal();
 	            break;
 
 	        case 4:
 	            localctx = new FunctionCallExpressionContext(this, localctx);
 	            this.enterOuterAlt(localctx, 4);
-	            this.state = 195;
+	            this.state = 197;
 	            this.functionCall();
 	            break;
 
 	        case 5:
 	            localctx = new ParenthesizedExpressionContext(this, localctx);
 	            this.enterOuterAlt(localctx, 5);
-	            this.state = 196;
-	            this.match(RELParser.LPAREN);
-	            this.state = 197;
-	            this.conditionalExpression();
 	            this.state = 198;
+	            this.match(RELParser.LPAREN);
+	            this.state = 199;
+	            this.conditionalExpression();
+	            this.state = 200;
 	            this.match(RELParser.RPAREN);
 	            break;
 
@@ -1120,7 +1125,7 @@ export default class RELParser extends antlr4.Parser {
 	    this.enterRule(localctx, 22, RELParser.RULE_bareIdentifier);
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 202;
+	        this.state = 204;
 	        this.match(RELParser.IDENTIFIER);
 	    } catch (re) {
 	    	if(re instanceof antlr4.error.RecognitionException) {
@@ -1143,9 +1148,9 @@ export default class RELParser extends antlr4.Parser {
 	    this.enterRule(localctx, 24, RELParser.RULE_variable);
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 204;
+	        this.state = 206;
 	        this.match(RELParser.T__0);
-	        this.state = 205;
+	        this.state = 207;
 	        this.variableName();
 	    } catch (re) {
 	    	if(re instanceof antlr4.error.RecognitionException) {
@@ -1168,19 +1173,19 @@ export default class RELParser extends antlr4.Parser {
 	    this.enterRule(localctx, 26, RELParser.RULE_variableName);
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 207;
+	        this.state = 209;
 	        this.match(RELParser.IDENTIFIER);
-	        this.state = 212;
+	        this.state = 214;
 	        this._errHandler.sync(this);
 	        var _alt = this._interp.adaptivePredict(this._input,15,this._ctx)
 	        while(_alt!=2 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
 	            if(_alt===1) {
-	                this.state = 208;
+	                this.state = 210;
 	                this.match(RELParser.DOT);
-	                this.state = 209;
+	                this.state = 211;
 	                this.match(RELParser.IDENTIFIER); 
 	            }
-	            this.state = 214;
+	            this.state = 216;
 	            this._errHandler.sync(this);
 	            _alt = this._interp.adaptivePredict(this._input,15,this._ctx);
 	        }
@@ -1205,32 +1210,38 @@ export default class RELParser extends antlr4.Parser {
 	    let localctx = new LiteralContext(this, this._ctx, this.state);
 	    this.enterRule(localctx, 28, RELParser.RULE_literal);
 	    try {
-	        this.state = 219;
+	        this.state = 222;
 	        this._errHandler.sync(this);
 	        switch(this._input.LA(1)) {
 	        case 48:
 	            localctx = new NumberLiteralContext(this, localctx);
 	            this.enterOuterAlt(localctx, 1);
-	            this.state = 215;
+	            this.state = 217;
 	            this.match(RELParser.NUMBER);
 	            break;
 	        case 49:
 	            localctx = new StringLiteralContext(this, localctx);
 	            this.enterOuterAlt(localctx, 2);
-	            this.state = 216;
+	            this.state = 218;
 	            this.match(RELParser.STRING);
 	            break;
 	        case 50:
 	            localctx = new BooleanLiteralContext(this, localctx);
 	            this.enterOuterAlt(localctx, 3);
-	            this.state = 217;
+	            this.state = 219;
 	            this.match(RELParser.BOOLEAN);
 	            break;
 	        case 44:
 	            localctx = new ArrayLiteralContext(this, localctx);
 	            this.enterOuterAlt(localctx, 4);
-	            this.state = 218;
+	            this.state = 220;
 	            this.array();
+	            break;
+	        case 52:
+	            localctx = new PlaceholderLiteralContext(this, localctx);
+	            this.enterOuterAlt(localctx, 5);
+	            this.state = 221;
+	            this.placeholder();
 	            break;
 	        default:
 	            throw new antlr4.error.NoViableAltException(this);
@@ -1251,35 +1262,58 @@ export default class RELParser extends antlr4.Parser {
 
 
 
+	placeholder() {
+	    let localctx = new PlaceholderContext(this, this._ctx, this.state);
+	    this.enterRule(localctx, 30, RELParser.RULE_placeholder);
+	    try {
+	        this.enterOuterAlt(localctx, 1);
+	        this.state = 224;
+	        this.match(RELParser.PLACEHOLDER);
+	    } catch (re) {
+	    	if(re instanceof antlr4.error.RecognitionException) {
+		        localctx.exception = re;
+		        this._errHandler.reportError(this, re);
+		        this._errHandler.recover(this, re);
+		    } else {
+		    	throw re;
+		    }
+	    } finally {
+	        this.exitRule();
+	    }
+	    return localctx;
+	}
+
+
+
 	array() {
 	    let localctx = new ArrayContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 30, RELParser.RULE_array);
+	    this.enterRule(localctx, 32, RELParser.RULE_array);
 	    var _la = 0;
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 221;
+	        this.state = 226;
 	        this.match(RELParser.LBRACKET);
-	        this.state = 230;
+	        this.state = 235;
 	        this._errHandler.sync(this);
 	        _la = this._input.LA(1);
-	        if((((_la) & ~0x1f) === 0 && ((1 << _la) & 16382) !== 0) || ((((_la - 32)) & ~0x1f) === 0 && ((1 << (_la - 32)) & 988163) !== 0)) {
-	            this.state = 222;
-	            this.conditionalExpression();
+	        if((((_la) & ~0x1f) === 0 && ((1 << _la) & 16382) !== 0) || ((((_la - 32)) & ~0x1f) === 0 && ((1 << (_la - 32)) & 2036739) !== 0)) {
 	            this.state = 227;
+	            this.conditionalExpression();
+	            this.state = 232;
 	            this._errHandler.sync(this);
 	            _la = this._input.LA(1);
 	            while(_la===39) {
-	                this.state = 223;
+	                this.state = 228;
 	                this.match(RELParser.COMMA);
-	                this.state = 224;
-	                this.conditionalExpression();
 	                this.state = 229;
+	                this.conditionalExpression();
+	                this.state = 234;
 	                this._errHandler.sync(this);
 	                _la = this._input.LA(1);
 	            }
 	        }
 
-	        this.state = 232;
+	        this.state = 237;
 	        this.match(RELParser.RBRACKET);
 	    } catch (re) {
 	    	if(re instanceof antlr4.error.RecognitionException) {
@@ -1299,35 +1333,35 @@ export default class RELParser extends antlr4.Parser {
 
 	functionCall() {
 	    let localctx = new FunctionCallContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 32, RELParser.RULE_functionCall);
+	    this.enterRule(localctx, 34, RELParser.RULE_functionCall);
 	    var _la = 0;
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 234;
+	        this.state = 239;
 	        this.functionName();
-	        this.state = 235;
+	        this.state = 240;
 	        this.match(RELParser.LPAREN);
-	        this.state = 244;
+	        this.state = 249;
 	        this._errHandler.sync(this);
 	        _la = this._input.LA(1);
-	        if((((_la) & ~0x1f) === 0 && ((1 << _la) & 16382) !== 0) || ((((_la - 32)) & ~0x1f) === 0 && ((1 << (_la - 32)) & 988163) !== 0)) {
-	            this.state = 236;
-	            this.conditionalExpression();
+	        if((((_la) & ~0x1f) === 0 && ((1 << _la) & 16382) !== 0) || ((((_la - 32)) & ~0x1f) === 0 && ((1 << (_la - 32)) & 2036739) !== 0)) {
 	            this.state = 241;
+	            this.conditionalExpression();
+	            this.state = 246;
 	            this._errHandler.sync(this);
 	            _la = this._input.LA(1);
 	            while(_la===39) {
-	                this.state = 237;
+	                this.state = 242;
 	                this.match(RELParser.COMMA);
-	                this.state = 238;
-	                this.conditionalExpression();
 	                this.state = 243;
+	                this.conditionalExpression();
+	                this.state = 248;
 	                this._errHandler.sync(this);
 	                _la = this._input.LA(1);
 	            }
 	        }
 
-	        this.state = 246;
+	        this.state = 251;
 	        this.match(RELParser.RPAREN);
 	    } catch (re) {
 	    	if(re instanceof antlr4.error.RecognitionException) {
@@ -1347,11 +1381,11 @@ export default class RELParser extends antlr4.Parser {
 
 	arrayMethods() {
 	    let localctx = new ArrayMethodsContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 34, RELParser.RULE_arrayMethods);
+	    this.enterRule(localctx, 36, RELParser.RULE_arrayMethods);
 	    var _la = 0;
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 248;
+	        this.state = 253;
 	        _la = this._input.LA(1);
 	        if(!((((_la) & ~0x1f) === 0 && ((1 << _la) & 508) !== 0))) {
 	        this._errHandler.recoverInline(this);
@@ -1378,11 +1412,11 @@ export default class RELParser extends antlr4.Parser {
 
 	stringMethods() {
 	    let localctx = new StringMethodsContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 36, RELParser.RULE_stringMethods);
+	    this.enterRule(localctx, 38, RELParser.RULE_stringMethods);
 	    var _la = 0;
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 250;
+	        this.state = 255;
 	        _la = this._input.LA(1);
 	        if(!(_la===9 || _la===10)) {
 	        this._errHandler.recoverInline(this);
@@ -1409,25 +1443,25 @@ export default class RELParser extends antlr4.Parser {
 
 	functionName() {
 	    let localctx = new FunctionNameContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 38, RELParser.RULE_functionName);
+	    this.enterRule(localctx, 40, RELParser.RULE_functionName);
 	    try {
-	        this.state = 257;
+	        this.state = 262;
 	        this._errHandler.sync(this);
 	        switch(this._input.LA(1)) {
 	        case 11:
 	            this.enterOuterAlt(localctx, 1);
-	            this.state = 252;
+	            this.state = 257;
 	            this.match(RELParser.T__10);
 	            break;
 	        case 12:
 	            this.enterOuterAlt(localctx, 2);
-	            this.state = 253;
+	            this.state = 258;
 	            this.match(RELParser.T__11);
 	            break;
 	        case 9:
 	        case 10:
 	            this.enterOuterAlt(localctx, 3);
-	            this.state = 254;
+	            this.state = 259;
 	            this.stringMethods();
 	            break;
 	        case 2:
@@ -1438,12 +1472,12 @@ export default class RELParser extends antlr4.Parser {
 	        case 7:
 	        case 8:
 	            this.enterOuterAlt(localctx, 4);
-	            this.state = 255;
+	            this.state = 260;
 	            this.arrayMethods();
 	            break;
 	        case 51:
 	            this.enterOuterAlt(localctx, 5);
-	            this.state = 256;
+	            this.state = 261;
 	            this.match(RELParser.IDENTIFIER);
 	            break;
 	        default:
@@ -1518,9 +1552,10 @@ RELParser.NUMBER = 48;
 RELParser.STRING = 49;
 RELParser.BOOLEAN = 50;
 RELParser.IDENTIFIER = 51;
-RELParser.WS = 52;
-RELParser.LINE_COMMENT = 53;
-RELParser.BLOCK_COMMENT = 54;
+RELParser.PLACEHOLDER = 52;
+RELParser.WS = 53;
+RELParser.LINE_COMMENT = 54;
+RELParser.BLOCK_COMMENT = 55;
 
 RELParser.RULE_expression = 0;
 RELParser.RULE_conditionalExpression = 1;
@@ -1537,11 +1572,12 @@ RELParser.RULE_bareIdentifier = 11;
 RELParser.RULE_variable = 12;
 RELParser.RULE_variableName = 13;
 RELParser.RULE_literal = 14;
-RELParser.RULE_array = 15;
-RELParser.RULE_functionCall = 16;
-RELParser.RULE_arrayMethods = 17;
-RELParser.RULE_stringMethods = 18;
-RELParser.RULE_functionName = 19;
+RELParser.RULE_placeholder = 15;
+RELParser.RULE_array = 16;
+RELParser.RULE_functionCall = 17;
+RELParser.RULE_arrayMethods = 18;
+RELParser.RULE_stringMethods = 19;
+RELParser.RULE_functionName = 20;
 
 class ExpressionContext extends antlr4.ParserRuleContext {
 
@@ -3677,6 +3713,42 @@ class BooleanLiteralContext extends LiteralContext {
 
 RELParser.BooleanLiteralContext = BooleanLiteralContext;
 
+class PlaceholderLiteralContext extends LiteralContext {
+
+    constructor(parser, ctx) {
+        super(parser);
+        super.copyFrom(ctx);
+    }
+
+	placeholder() {
+	    return this.getTypedRuleContext(PlaceholderContext,0);
+	};
+
+	enterRule(listener) {
+	    if(listener instanceof RELListener ) {
+	        listener.enterPlaceholderLiteral(this);
+		}
+	}
+
+	exitRule(listener) {
+	    if(listener instanceof RELListener ) {
+	        listener.exitPlaceholderLiteral(this);
+		}
+	}
+
+	accept(visitor) {
+	    if ( visitor instanceof RELVisitor ) {
+	        return visitor.visitPlaceholderLiteral(this);
+	    } else {
+	        return visitor.visitChildren(this);
+	    }
+	}
+
+
+}
+
+RELParser.PlaceholderLiteralContext = PlaceholderLiteralContext;
+
 class ArrayLiteralContext extends LiteralContext {
 
     constructor(parser, ctx) {
@@ -3748,6 +3820,49 @@ class NumberLiteralContext extends LiteralContext {
 }
 
 RELParser.NumberLiteralContext = NumberLiteralContext;
+
+class PlaceholderContext extends antlr4.ParserRuleContext {
+
+    constructor(parser, parent, invokingState) {
+        if(parent===undefined) {
+            parent = null;
+        }
+        if(invokingState===undefined || invokingState===null) {
+            invokingState = -1;
+        }
+        super(parent, invokingState);
+        this.parser = parser;
+        this.ruleIndex = RELParser.RULE_placeholder;
+    }
+
+	PLACEHOLDER() {
+	    return this.getToken(RELParser.PLACEHOLDER, 0);
+	};
+
+	enterRule(listener) {
+	    if(listener instanceof RELListener ) {
+	        listener.enterPlaceholder(this);
+		}
+	}
+
+	exitRule(listener) {
+	    if(listener instanceof RELListener ) {
+	        listener.exitPlaceholder(this);
+		}
+	}
+
+	accept(visitor) {
+	    if ( visitor instanceof RELVisitor ) {
+	        return visitor.visitPlaceholder(this);
+	    } else {
+	        return visitor.visitChildren(this);
+	    }
+	}
+
+
+}
+
+
 
 class ArrayContext extends antlr4.ParserRuleContext {
 
@@ -4040,6 +4155,7 @@ RELParser.BareIdentifierContext = BareIdentifierContext;
 RELParser.VariableContext = VariableContext; 
 RELParser.VariableNameContext = VariableNameContext; 
 RELParser.LiteralContext = LiteralContext; 
+RELParser.PlaceholderContext = PlaceholderContext; 
 RELParser.ArrayContext = ArrayContext; 
 RELParser.FunctionCallContext = FunctionCallContext; 
 RELParser.ArrayMethodsContext = ArrayMethodsContext; 

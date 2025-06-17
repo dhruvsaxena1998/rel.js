@@ -576,5 +576,115 @@ describe('REL Translator - Comprehensive Integration Tests', () => {
                 ]
             });
         });
+describe('Placeholder Support', () => {
+        it('should translate simple placeholders', () => {
+            expect(translate('{AGE}').jsonLogic).toBe('{AGE}');
+            expect(translate('{USER_NAME}').jsonLogic).toBe('{USER_NAME}');
+            expect(translate('{MIN_SCORE}').jsonLogic).toBe('{MIN_SCORE}');
+        });
+
+        it('should translate placeholders in comparisons', () => {
+            expect(translate('@age > {AGE}').jsonLogic).toEqual({
+                ">": [{"var": "age"}, "{AGE}"]
+            });
+            expect(translate('@name == {USER_NAME}').jsonLogic).toEqual({
+                "==": [{"var": "name"}, "{USER_NAME}"]
+            });
+            expect(translate('@score < {MAX_SCORE}').jsonLogic).toEqual({
+                "<": [{"var": "score"}, "{MAX_SCORE}"]
+            });
+        });
+
+        it('should translate placeholders in between expressions', () => {
+            expect(translate('@score between {MIN_SCORE} and {MAX_SCORE}').jsonLogic).toEqual({
+                "and": [
+                    {">=": [{"var": "score"}, "{MIN_SCORE}"]},
+                    {"<=": [{"var": "score"}, "{MAX_SCORE}"]}
+                ]
+            });
+        });
+
+        it('should translate placeholders in arrays', () => {
+            expect(translate('[{ITEM_1}, {ITEM_2}, {ITEM_3}]').jsonLogic).toEqual([
+                "{ITEM_1}", "{ITEM_2}", "{ITEM_3}"
+            ]);
+            expect(translate('@category in [{CATEGORY_1}, {CATEGORY_2}]').jsonLogic).toEqual({
+                "in": [{"var": "category"}, ["{CATEGORY_1}", "{CATEGORY_2}"]]
+            });
+        });
+
+        it('should translate placeholders in conditional expressions', () => {
+            expect(translate('if @status == {ACTIVE_STATUS} then @count + {BONUS} else @count').jsonLogic).toEqual({
+                "if": [
+                    {"==": [{"var": "status"}, "{ACTIVE_STATUS}"]},
+                    {"+": [{"var": "count"}, "{BONUS}"]},
+                    {"var": "count"}
+                ]
+            });
+        });
+
+        it('should translate placeholders in arithmetic operations', () => {
+            expect(translate('@price * {MULTIPLIER} + {BASE_FEE}').jsonLogic).toEqual({
+                "+": [
+                    {"*": [{"var": "price"}, "{MULTIPLIER}"]},
+                    "{BASE_FEE}"
+                ]
+            });
+        });
+
+        it('should translate placeholders in logical operations', () => {
+            expect(translate('@role == {ADMIN_ROLE} and @active == {ACTIVE_FLAG}').jsonLogic).toEqual({
+                "and": [
+                    {"==": [{"var": "role"}, "{ADMIN_ROLE}"]},
+                    {"==": [{"var": "active"}, "{ACTIVE_FLAG}"]}
+                ]
+            });
+        });
+
+        it('should translate placeholders in function calls', () => {
+            expect(translate('max(@score, {MIN_THRESHOLD})').jsonLogic).toEqual({
+                "max": [{"var": "score"}, "{MIN_THRESHOLD}"]
+            });
+        });
+
+        it('should handle mixed placeholders and literals', () => {
+            expect(translate('@age > {MIN_AGE} and @name == "John"').jsonLogic).toEqual({
+                "and": [
+                    {">": [{"var": "age"}, "{MIN_AGE}"]},
+                    {"==": [{"var": "name"}, "John"]}
+                ]
+            });
+        });
+    });
+
+    describe('Bare Identifier Validation', () => {
+        it('should throw error for bare identifiers outside lambda context', () => {
+            expect(() => translate('@charge_code in CHARGE_CODES')).toThrow('Invalid bare identifier \'CHARGE_CODES\'');
+            expect(() => translate('USER_ID == 123')).toThrow('Invalid bare identifier \'USER_ID\'');
+            expect(() => translate('@name == ADMIN_ROLE')).toThrow('Invalid bare identifier \'ADMIN_ROLE\'');
+            expect(() => translate('STATUS == "active"')).toThrow('Invalid bare identifier \'STATUS\'');
+        });
+
+        it('should allow bare identifiers in lambda expressions', () => {
+            expect(translate('some(@users, user.role == "admin")').jsonLogic).toEqual({
+                "some": [
+                    {"var": "users"},
+                    {"==": [{"var": "role"}, "admin"]}
+                ]
+            });
+            expect(translate('filter(@products, product.price < 100)').jsonLogic).toEqual({
+                "filter": [
+                    {"var": "products"},
+                    {"<": [{"var": "price"}, 100]}
+                ]
+            });
+        });
+
+        it('should provide helpful error messages for bare identifiers', () => {
+            expect(() => translate('INVALID_IDENTIFIER')).toThrow(
+                'Invalid bare identifier \'INVALID_IDENTIFIER\'. Identifiers must be prefixed with \'@\' for variables or quoted as strings. Bare identifiers are only allowed in lambda expressions within array methods.'
+            );
+        });
+    });
     });
 });

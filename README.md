@@ -16,6 +16,7 @@ REL (Rule Expression Language) provides an intuitive, natural language-like synt
 - 🎛️ **Conditional logic** - Full if-then-else support with elseif chains
 - 🔍 **Property access** - Dot notation for nested object properties
 - 📝 **Multiple syntax styles** - Both symbolic (`>`) and word-based (`greater than`) operators
+- 🏷️ **Placeholder support** - Dynamic placeholders for parameterized expressions
 
 ## Quick Start
 
@@ -35,6 +36,11 @@ const result = translate('@age > 18');
 console.log(result.jsonLogic);
 // Output: { ">": [{"var": "age"}, 18] }
 
+// Parameterized expressions with placeholders
+const parameterizedRule = translate('@age > {MIN_AGE} and @role == {REQUIRED_ROLE}');
+console.log(parameterizedRule.jsonLogic);
+// Output: { "and": [{ ">": [{"var": "age"}, "{MIN_AGE}"] }, { "==": [{"var": "role"}, "{REQUIRED_ROLE}"] }] }
+
 // Complex business logic
 const businessRule = translate(`
     if @user.role == "admin" and @user.isActive then
@@ -47,11 +53,11 @@ const businessRule = translate(`
 
 // Use with JSONLogic
 import jsonLogic from 'json-logic-js';
-const data = { 
-    user: { 
-        role: "admin", 
-        isActive: true 
-    } 
+const data = {
+    user: {
+        role: "admin",
+        isActive: true
+    }
 };
 const result = jsonLogic.apply(businessRule.jsonLogic, data);
 console.log(result); // "full_access"
@@ -92,6 +98,14 @@ Real-world examples including:
 @user.name              // Simple property access
 @user.profile.settings  // Nested properties
 @cart.items.length      // Array properties
+```
+
+### Placeholders
+```rel
+{AGE}                   // Simple placeholder
+{USER_NAME}             // Placeholder for dynamic values
+{MIN_SCORE}             // Placeholder in expressions
+@age > {THRESHOLD}      // Mixed variables and placeholders
 ```
 
 ### Operators

@@ -10,6 +10,15 @@ This guide provides quick examples for every operator in the REL (Rule Expressio
 @user.profile.age   // Deep nesting
 ```
 
+## Placeholders
+```rel
+{AGE}                   // Simple placeholder
+{USER_NAME}             // String placeholder
+{MIN_SCORE}             // Numeric placeholder
+@age > {THRESHOLD}      // Variable with placeholder
+@role == {ADMIN_ROLE}   // Comparison with placeholder
+```
+
 ## Equality Operators
 
 ### Equal (`==`, `=`, `eq`, `equals`, `equals to`)
@@ -19,6 +28,12 @@ This guide provides quick examples for every operator in the REL (Rule Expressio
 @status eq "active"
 @role equals "admin"
 @type equals to "premium"
+
+// With placeholders
+@age == {MIN_AGE}
+@name = {USER_NAME}
+@status eq {ACTIVE_STATUS}
+@role equals {ADMIN_ROLE}
 ```
 
 ### Strict Equal (`===`, `seq`, `strict equals`, `strict eq`, `strict equal to`)
@@ -54,6 +69,11 @@ This guide provides quick examples for every operator in the REL (Rule Expressio
 @age > 18
 @score gt 85
 @temperature greater than 0
+
+// With placeholders
+@age > {MIN_AGE}
+@score gt {PASSING_SCORE}
+@temperature greater than {FREEZING_POINT}
 ```
 
 ### Greater Than or Equal (`>=`, `gte`, `greater than or equal to`)
@@ -83,6 +103,11 @@ This guide provides quick examples for every operator in the REL (Rule Expressio
 @score between 85.5 and 92.3
 @temperature between -10 and 5
 @price between @minPrice and @maxPrice
+
+// With placeholders
+@age between {MIN_AGE} and {MAX_AGE}
+@score between {MIN_SCORE} and {MAX_SCORE}
+@price between {MIN_PRICE} and {MAX_PRICE}
 ```
 
 ## Membership Operators
@@ -94,6 +119,12 @@ This guide provides quick examples for every operator in the REL (Rule Expressio
 @status in ["active", "pending"]
 "admin" in @user.permissions
 @userId in @approvedUsers
+
+// With placeholders
+@country in [{COUNTRY_1}, {COUNTRY_2}]
+@role in {ALLOWED_ROLES}
+@status in [{STATUS_1}, {STATUS_2}]
+@category in [{CATEGORY_A}, {CATEGORY_B}, {CATEGORY_C}]
 ```
 
 ### Not In
@@ -282,6 +313,11 @@ if @age >= 18 then "adult" else "minor"
 if @user.isActive then @user.name else "Inactive"
 if @score >= 70 then "pass" else "fail"
 if @balance > 0 then "positive" else "negative"
+
+// With placeholders
+if @age >= {MIN_AGE} then {ADULT_STATUS} else {MINOR_STATUS}
+if @score >= {PASSING_SCORE} then {PASS_MESSAGE} else {FAIL_MESSAGE}
+if @balance > {ZERO_THRESHOLD} then {POSITIVE_STATUS} else {NEGATIVE_STATUS}
 ```
 
 ### If-ElseIf-Else Chains

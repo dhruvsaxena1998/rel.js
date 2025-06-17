@@ -71,6 +71,14 @@ false       // Boolean false
 [[1, 2], [3, 4]]     // Nested arrays
 ```
 
+### Placeholders
+```rel
+{AGE}               // Simple placeholder
+{USER_NAME}         // String placeholder
+{MIN_SCORE}         // Numeric placeholder
+{CATEGORY_LIST}     // Array placeholder
+```
+
 ## Variables
 
 Variables in REL are prefixed with `@` and support dot notation for nested property access.
@@ -95,6 +103,48 @@ Variables in REL are prefixed with `@` and support dot notation for nested prope
 @user.role == "admin"
 @product.price * @product.quantity
 ```
+
+## Placeholders
+
+Placeholders in REL are wrapped in curly braces `{}` and are used for parameterized expressions. They allow you to create dynamic rules where values can be substituted at runtime.
+
+### Placeholder Syntax
+```rel
+{PLACEHOLDER_NAME}   // Basic placeholder syntax
+```
+
+### Placeholder Examples
+```rel
+// Simple comparison with placeholder
+@age > {MIN_AGE}
+
+// Multiple placeholders
+@score between {MIN_SCORE} and {MAX_SCORE}
+
+// Placeholders in arrays
+@category in [{CATEGORY_1}, {CATEGORY_2}, {CATEGORY_3}]
+
+// Placeholders in conditional expressions
+if @status == {ACTIVE_STATUS} then @count + {BONUS} else @count
+
+// Mixed variables and placeholders
+@user.role == {ADMIN_ROLE} and @user.points >= {MIN_POINTS}
+```
+
+### JSONLogic Output
+Placeholders are converted to string literals in JSONLogic, preserving the braces for runtime substitution:
+
+```rel
+@age > {MIN_AGE}
+// Converts to:
+{ ">": [{"var": "age"}, "{MIN_AGE}"] }
+```
+
+### Use Cases
+- **Configuration-driven rules**: Define rules once, substitute values per environment
+- **A/B testing**: Use placeholders for different test parameters
+- **Multi-tenant applications**: Same rule logic with tenant-specific values
+- **Dynamic thresholds**: Rules that adapt based on external configuration
 
 ## Operators
 

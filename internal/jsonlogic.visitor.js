@@ -469,9 +469,16 @@ export default class JSONLogicVisitor extends RELVisitor {
     /**
      * Handles bare identifiers (typically used in lambda expressions)
      * Produces JSONLogic: {"var": "identifier"}
+     * Throws error if used outside lambda context
      */
     visitBareIdentifier(ctx) {
         const identifier = ctx.getText();
+        
+        // Validate that bare identifiers are only used in lambda contexts
+        if (!this.lambdaContext.isInLambda) {
+            throw new Error(`Invalid bare identifier '${identifier}'. Identifiers must be prefixed with '@' for variables or quoted as strings. Bare identifiers are only allowed in lambda expressions within array methods.`);
+        }
+        
         return { var: identifier };
     }
 
@@ -533,6 +540,22 @@ export default class JSONLogicVisitor extends RELVisitor {
      */
     visitArrayLiteral(ctx) {
         return this.visit(ctx.array());
+    }
+
+    /**
+     * Handles placeholder literals
+     * Returns: string (the placeholder including braces)
+     */
+    visitPlaceholderLiteral(ctx) {
+        return this.visit(ctx.placeholder());
+    }
+
+    /**
+     * Handles placeholder tokens
+     * Returns: string (the placeholder including braces)
+     */
+    visitPlaceholder(ctx) {
+        return ctx.PLACEHOLDER().getText();
     }
 
     /**

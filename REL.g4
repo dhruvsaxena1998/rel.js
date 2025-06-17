@@ -89,7 +89,11 @@ literal:
 	NUMBER		# NumberLiteral
 	| STRING	# StringLiteral
 	| BOOLEAN	# BooleanLiteral
-	| array		# ArrayLiteral;
+	| array		# ArrayLiteral
+	| placeholder	# PlaceholderLiteral;
+
+// Placeholder literal
+placeholder: PLACEHOLDER;
 
 // Array literal
 array:
@@ -187,6 +191,8 @@ STRING:
 BOOLEAN: 'true' | 'false';
 
 IDENTIFIER: [a-zA-Z_] [a-zA-Z0-9_]*;
+
+PLACEHOLDER: '{' IDENTIFIER '}';
 
 // Whitespace and comments
 WS: [ \t\r\n]+ -> skip;

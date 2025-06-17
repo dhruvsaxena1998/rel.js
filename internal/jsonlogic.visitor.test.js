@@ -805,15 +805,30 @@ describe('JSONLogicVisitor', () => {
 
     describe('Identifiers and Variables', () => {
         describe('visitBareIdentifier', () => {
-            it('should create variable reference from bare identifier', () => {
+            it('should throw error when used outside lambda context', () => {
                 const ctx = createMockContext();
                 ctx.getText = () => 'identifier';
+
+                expect(() => {
+                    visitor.visitBareIdentifier(ctx);
+                }).toThrow('Invalid bare identifier \'identifier\'. Identifiers must be prefixed with \'@\' for variables or quoted as strings. Bare identifiers are only allowed in lambda expressions within array methods.');
+            });
+
+            it('should create variable reference when in lambda context', () => {
+                const ctx = createMockContext();
+                ctx.getText = () => 'identifier';
+
+                // Enter lambda context
+                visitor.enterLambdaContext();
 
                 const result = visitor.visitBareIdentifier(ctx);
 
                 expect(result).toEqual({
                     var: 'identifier'
                 });
+
+                // Clean up
+                visitor.exitLambdaContext();
             });
         });
 
