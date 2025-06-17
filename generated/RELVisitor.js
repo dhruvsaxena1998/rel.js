@@ -102,6 +102,18 @@ export default class RELVisitor extends antlr4.tree.ParseTreeVisitor {
 	}
 
 
+	// Visit a parse tree produced by RELParser#EndsWithExpression.
+	visitEndsWithExpression(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by RELParser#StartsWithExpression.
+	visitStartsWithExpression(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
 	// Visit a parse tree produced by RELParser#GreaterThanOrEqualExpression.
 	visitGreaterThanOrEqualExpression(ctx) {
 	  return this.visitChildren(ctx);

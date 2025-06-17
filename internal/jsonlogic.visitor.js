@@ -231,6 +231,75 @@ export default class JSONLogicVisitor extends RELVisitor {
     }
 
     /**
+     * Handles 'starts with' expressions (string starts with substring)
+     * Uses JSONLogic substr to check if beginning of string matches substring
+     * Produces JSONLogic: {"==": [{"substr": [string, 0, length]}, substring]}
+     */
+    visitStartsWithExpression(ctx) {
+        const string = this.visit(ctx.relationalExpression());
+        const substring = this.visit(ctx.additiveExpression());
+        
+        // For string literals, we can calculate the length directly
+        // For variables, we use the length function
+        let length;
+        if (typeof substring === 'string') {
+            length = substring.length;
+        } else {
+            length = { "length": substring };
+        }
+        
+        return {
+            "==": [
+                {
+                    "substr": [string, 0, length]
+                },
+                substring
+            ]
+        };
+    }
+
+    /**
+     * Handles 'ends with' expressions (string ends with substring)
+     * Uses JSONLogic substr with negative start position to check end of string
+     * Produces JSONLogic: {"==": [{"substr": [string, -length]}, substring]}
+     */
+    visitEndsWithExpression(ctx) {
+        const string = this.visit(ctx.relationalExpression());
+        const substring = this.visit(ctx.additiveExpression());
+        
+        // For string literals, we can calculate the length directly
+        // For variables, we use the length function
+        let length;
+        if (typeof substring === 'string') {
+            length = substring.length;
+        } else {
+            length = { "length": substring };
+        }
+        
+        return {
+            "==": [
+                {
+                    "substr": [string, -length]
+                },
+                substring
+            ]
+        };
+    }
+
+    /**
+     * Handles 'contains' expressions (string contains substring)
+     * Produces JSONLogic: {"in": [substring, string]}
+     */
+    visitContainsExpression(ctx) {
+        const string = this.visit(ctx.relationalExpression());
+        const substring = this.visit(ctx.additiveExpression());
+        
+        return {
+            "in": [substring, string]
+        };
+    }
+
+    /**
      * Passes through to additive expression
      */
     visitAdditive(ctx) {

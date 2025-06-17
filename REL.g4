@@ -39,6 +39,8 @@ relationalExpression:
 	| relationalExpression BETWEEN additiveExpression AND additiveExpression	# BetweenExpression
 	| relationalExpression IN additiveExpression								# InExpression
 	| relationalExpression NOT_IN additiveExpression							# NotInExpression
+	| relationalExpression STARTS_WITH additiveExpression						# StartsWithExpression
+	| relationalExpression ENDS_WITH additiveExpression							# EndsWithExpression
 	| additiveExpression														# Additive;
 
 // Arithmetic operations (addition, subtraction)
@@ -56,9 +58,9 @@ multiplicativeExpression:
 
 // Unary expressions (negation, double negation)
 unaryExpression:
-	NOT unaryExpression		# NotExpression
+	NOT unaryExpression				# NotExpression
 	| DOUBLE_NOT unaryExpression	# DoubleNotExpression
-	| postfixExpression		# Postfix;
+	| postfixExpression				# Postfix;
 
 // Postfix expressions (dot notation for nested access)
 postfixExpression:
@@ -67,10 +69,10 @@ postfixExpression:
 
 // Primary expressions (atoms)
 primaryExpression:
-	variable						# VariableExpression
-	| bareIdentifier				# BareIdentifierExpression
-	| literal						# LiteralExpression
-	| functionCall					# FunctionCallExpression
+	variable								# VariableExpression
+	| bareIdentifier						# BareIdentifierExpression
+	| literal								# LiteralExpression
+	| functionCall							# FunctionCallExpression
 	| LPAREN conditionalExpression RPAREN	# ParenthesizedExpression;
 
 // Bare identifier (for lambda expressions)
@@ -91,7 +93,9 @@ literal:
 
 // Array literal
 array:
-	LBRACKET (conditionalExpression (COMMA conditionalExpression)*)? RBRACKET;
+	LBRACKET (
+		conditionalExpression (COMMA conditionalExpression)*
+	)? RBRACKET;
 
 // Function calls (now includes array methods)
 functionCall:
@@ -129,8 +133,10 @@ GTE: '>=' | 'gte' | 'greater than or equal to';
 LT: '<' | 'lt' | 'less than';
 LTE: '<=' | 'lte' | 'less than or equal to';
 BETWEEN: 'between';
-IN: 'in';
+IN: 'in' | 'contains' | 'includes';
 NOT_IN: 'not in';
+STARTS_WITH: 'starts with';
+ENDS_WITH: 'ends with';
 
 NOT: '!' | 'not';
 DOUBLE_NOT: '!!';

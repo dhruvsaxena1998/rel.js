@@ -13,6 +13,7 @@
 - **Comparison operators**: `==`, `===`, `!=`, `!==`, `>`, `>=`, `<`, `<=`
 - **Arithmetic operators**: `+`, `-`, `*`, `/`, `%`
 - **Membership operators**: `in`, `not in`
+- **String operations**: `starts with`, `ends with`, `contains` (NEW)
 - **Conditional expressions**: `if-then-else`, `if-elseif-else` chains
 
 ### Array Methods (FIXED)
@@ -27,8 +28,8 @@
 - **Error handling**: Comprehensive validation and error reporting
 
 ### Testing
-- **26 test cases** - All passing ✅
-- **Comprehensive coverage** - All major operators and edge cases
+- **222 test cases** - All passing ✅
+- **Comprehensive coverage** - All major operators, string operations, and edge cases
 - **Cross-validation** - All generated REL expressions translate back successfully
 
 ## 🔧 Recent Fixes

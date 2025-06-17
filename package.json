@@ -5,11 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "preinstall": "pnpm run generate-parser",
-
     "generate-parser": "rimraf generated && antlr4 -Dlanguage=JavaScript -visitor -listener -o generated ./REL.g4",
     "test": "vitest run",
-    "test-run": "node test.js"
+    "test-run": "node test.js",
+    "build": "esbuild index.js --platform=node --bundle --format=esm --outdir=dist"
   },
   "keywords": [],
   "author": "",

@@ -172,6 +172,43 @@ describe('JSONLogic to REL Conversion', () => {
         });
     });
 
+    describe('String Operations', () => {
+        it('should convert starts with operations', () => {
+            expect(convertFromJsonLogic({
+                "==": [
+                    {
+                        "substr": [
+                            { "var": "x" },
+                            0,
+                            3
+                        ]
+                    },
+                    "abc"
+                ]
+            })).toBe('@x starts with "abc"');
+        });
+
+        it('should convert ends with operations', () => {
+            expect(convertFromJsonLogic({
+                "==": [
+                    {
+                        "substr": [
+                            { "var": "customerEmail" },
+                            -8
+                        ]
+                    },
+                    "nike.com"
+                ]
+            })).toBe('@customerEmail ends with "nike.com"');
+        });
+
+        it('should convert contains operations', () => {
+            expect(convertFromJsonLogic({
+                "in": ["read:posts", { "var": "customerPermissions" }]
+            })).toBe('@customerPermissions contains "read:posts"');
+        });
+    });
+
     describe('Conditional Expressions', () => {
         it('should convert simple if-then-else', () => {
             expect(convertFromJsonLogic({

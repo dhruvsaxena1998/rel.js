@@ -59,6 +59,11 @@ function convertOperator(operator, args) {
             
         // Comparison operators
         case '==':
+            // Check for string operation patterns
+            const stringOp = detectStringOperation(argArray);
+            if (stringOp) {
+                return stringOp;
+            }
             return convertBinaryOperator(argArray, ' == ');
         case '===':
             return convertBinaryOperator(argArray, ' === ');
@@ -89,6 +94,11 @@ function convertOperator(operator, args) {
             
         // Membership operators
         case 'in':
+            // Check if this is a "contains" pattern (substring in string)
+            const containsPattern = detectContainsPattern(argArray);
+            if (containsPattern) {
+                return containsPattern;
+            }
             return `${jsonLogicToRel(argArray[0])} in ${jsonLogicToRel(argArray[1])}`;
             
         // Conditional expressions
@@ -517,4 +527,64 @@ export function convertFromJsonLogic(jsonLogic) {
     } catch (error) {
         throw new Error(`Failed to convert JSONLogic to REL: ${error.message}`);
     }
+}
+
+/**
+ * Detects string operation patterns in == expressions
+ * @param {Array} args - The arguments to the == operator
+ * @returns {string|null} - The REL string operation or null if not detected
+ */
+function detectStringOperation(args) {
+    if (args.length !== 2) return null;
+    
+    const [left, right] = args;
+    
+    // Check for starts with pattern: {"==": [{"substr": [string, 0, length]}, substring]}
+    if (left && left.substr && Array.isArray(left.substr)) {
+        const [string, start, length] = left.substr;
+        
+        // Starts with: start is 0 and length matches substring length
+        if (start === 0 && length !== undefined && typeof right === 'string' && length === right.length) {
+            return `${jsonLogicToRel(string)} starts with ${jsonLogicToRel(right)}`;
+        }
+        
+        // Starts with: start is 0 and length is {"length": substring}
+        if (start === 0 && length && length.length && JSON.stringify(length.length) === JSON.stringify(right)) {
+            return `${jsonLogicToRel(string)} starts with ${jsonLogicToRel(right)}`;
+        }
+        
+        // Ends with: start is negative length and matches substring length
+        if (typeof start === 'number' && start < 0 && typeof right === 'string' && Math.abs(start) === right.length) {
+            return `${jsonLogicToRel(string)} ends with ${jsonLogicToRel(right)}`;
+        }
+        
+        // Ends with: start is {"-": {"length": substring}} and no third argument
+        if (length === undefined && start && start['-'] && start['-'].length &&
+            JSON.stringify(start['-'].length) === JSON.stringify(right)) {
+            return `${jsonLogicToRel(string)} ends with ${jsonLogicToRel(right)}`;
+        }
+    }
+    
+    return null;
+}
+
+/**
+ * Detects contains pattern in 'in' expressions
+ * @param {Array} args - The arguments to the 'in' operator
+ * @returns {string|null} - The REL contains operation or null if not detected
+ */
+function detectContainsPattern(args) {
+    if (args.length !== 2) return null;
+    
+    const [substring, string] = args;
+    
+    // Only treat as contains if the second argument is a variable (string container)
+    // and the first argument is a string literal or simple variable (substring)
+    if (string && string.var && (typeof substring === 'string' || (substring && substring.var))) {
+        // Additional heuristic: if the string container is not an array, it's likely a contains operation
+        // This is a simple heuristic - in practice, you might want more sophisticated detection
+        return `${jsonLogicToRel(string)} contains ${jsonLogicToRel(substring)}`;
+    }
+    
+    return null;
 }

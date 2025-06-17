@@ -149,6 +149,24 @@ export default class RELListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
+	// Enter a parse tree produced by RELParser#EndsWithExpression.
+	enterEndsWithExpression(ctx) {
+	}
+
+	// Exit a parse tree produced by RELParser#EndsWithExpression.
+	exitEndsWithExpression(ctx) {
+	}
+
+
+	// Enter a parse tree produced by RELParser#StartsWithExpression.
+	enterStartsWithExpression(ctx) {
+	}
+
+	// Exit a parse tree produced by RELParser#StartsWithExpression.
+	exitStartsWithExpression(ctx) {
+	}
+
+
 	// Enter a parse tree produced by RELParser#GreaterThanOrEqualExpression.
 	enterGreaterThanOrEqualExpression(ctx) {
 	}

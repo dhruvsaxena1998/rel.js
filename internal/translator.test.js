@@ -256,6 +256,37 @@ describe('REL Translator - Comprehensive Integration Tests', () => {
                 "substr": [{"var": "text"}, 0, 5]
             });
         });
+
+        it('should translate string matching operations', () => {
+            expect(translate('@customerEmail ends with "nike.com"').jsonLogic).toEqual({
+                "==": [
+                    {
+                        "substr": [
+                            {"var": "customerEmail"},
+                            -8
+                        ]
+                    },
+                    "nike.com"
+                ]
+            });
+            
+            expect(translate('@x starts with "abc"').jsonLogic).toEqual({
+                "==": [
+                    {
+                        "substr": [
+                            {"var": "x"},
+                            0,
+                            3
+                        ]
+                    },
+                    "abc"
+                ]
+            });
+            
+            expect(translate('@customerPermissions contains "read:posts"').jsonLogic).toEqual({
+                "in": [{"var": "customerPermissions"}, "read:posts"]
+            });
+        });
     });
 
     describe('Array Operations', () => {

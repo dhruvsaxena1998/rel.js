@@ -1,36 +1,49 @@
 # Active Context
 
 ## Current Task Status: COMPLETED ✅
-Fixed the JSONLogic to REL conversion for array method lambda expressions.
+Added support for string operations: "starts with", "ends with", and "contains".
 
 ## Problem Solved
-The test was failing because lambda expressions in array methods were not being converted correctly:
-- **Issue**: `filter(@products, @price < 100)` was being generated instead of `filter(@products, product.price < 100)`
-- **Root Cause**: Lambda expressions weren't handling variable context properly in array methods
-- **Solution**: Enhanced `convertArrayMethod` and `convertLambdaExpression` functions to handle lambda context correctly
+JSONLogic by default doesn't have support for "ends with", "starts with", and "contains" operations. We implemented these using JSONLogic's existing operators:
+- **starts with**: Uses `substr` with start position 0 and length matching substring length
+- **ends with**: Uses `substr` with negative start position matching substring length
+- **contains**: Uses the existing `in` operator (substring in string)
 
 ## Key Changes Made
-1. **Enhanced `convertArrayMethod`**: Now extracts array variable name and converts plural to singular for lambda context
-2. **Rewrote `convertLambdaExpression`**: Added proper lambda context handling with item name parameter
-3. **Added `convertLambdaExpression_internal`**: Recursive helper for lambda expression conversion
-4. **Added `convertBinaryOperatorLambda`**: Binary operator handling in lambda context
+1. **Updated Grammar (REL.g4)**:
+   - Added `STARTS_WITH`, `ENDS_WITH`, `CONTAINS` tokens
+   - Added corresponding expression rules in relational expressions
 
-## Lambda Context Logic
-- `products` → `product` (singular form for lambda variable)
-- `users` → `user` 
-- `permissions` → `permission`
-- `{ "var": "price" }` in lambda → `product.price`
-- `{ "var": "" }` in lambda → `item` (current iteration item)
+2. **Enhanced JSONLogic Visitor**:
+   - Added `visitStartsWithExpression`: Generates `{"==": [{"substr": [string, 0, length]}, substring]}`
+   - Added `visitEndsWithExpression`: Generates `{"==": [{"substr": [string, -length]}, substring]}`
+   - Added `visitContainsExpression`: Generates `{"in": [substring, string]}`
+
+3. **Enhanced JSONLogic to REL Converter**:
+   - Added `detectStringOperation`: Detects starts/ends with patterns in `==` expressions
+   - Enhanced `detectContainsPattern`: Detects contains patterns in `in` expressions
+   - Updated conversion logic to handle string operation patterns
+
+4. **Added Comprehensive Tests**:
+   - Forward conversion tests (REL → JSONLogic)
+   - Reverse conversion tests (JSONLogic → REL)
+   - All tests pass with bidirectional conversion ✅
+
+## Implementation Details
+- **starts with**: `@x starts with "abc"` → `{"==": [{"substr": [{"var": "x"}, 0, 3]}, "abc"]}`
+- **ends with**: `@customerEmail ends with "nike.com"` → `{"==": [{"substr": [{"var": "customerEmail"}, -8]}, "nike.com"]}`
+- **contains**: `@customerPermissions contains "read:posts"` → `{"in": [{"var": "customerPermissions"}, "read:posts"]}`
 
 ## Verification
-- All 26 tests now pass ✅
-- Cross-validated with `translate()` function - all conversions translate back successfully
-- Specific test cases verified:
-  - `filter(@products, product.price < 100)` ✅
-  - `map(@users, user.name)` ✅  
-  - `some(@permissions, item == "admin")` ✅
+- All 222 tests pass ✅
+- Bidirectional conversion works perfectly
+- String operations integrate seamlessly with existing grammar
+- Examples tested:
+  - `@customerEmail ends with "nike.com"` ✅
+  - `@x starts with "abc"` ✅
+  - `@customerPermissions contains "read:posts"` ✅
 
 ## Next Steps
-- Project is ready for use
-- Consider adding more complex lambda expression test cases
-- Documentation could be enhanced with lambda expression examples
+- String operations are fully implemented and tested
+- Ready for production use
+- Consider adding more string operations if needed (e.g., regex support)
