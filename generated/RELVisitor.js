@@ -234,6 +234,12 @@ export default class RELVisitor extends antlr4.tree.ParseTreeVisitor {
 	}
 
 
+	// Visit a parse tree produced by RELParser#IfExpressionPrimary.
+	visitIfExpressionPrimary(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
 	// Visit a parse tree produced by RELParser#ParenthesizedExpression.
 	visitParenthesizedExpression(ctx) {
 	  return this.visitChildren(ctx);

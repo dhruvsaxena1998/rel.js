@@ -464,6 +464,30 @@ export default class JSONLogicVisitor extends RELVisitor {
         return this.visit(ctx.conditionalExpression());
     }
 
+    /**
+     * Handles if expressions used as primary expressions
+     */
+    visitIfExpressionPrimary(ctx) {
+        const conditions = ctx.logicalOrExpression();
+        const expressions = ctx.conditionalExpression();
+        
+        // Build JSONLogic if array: [condition1, then1, condition2, then2, ..., else]
+        const ifArray = [];
+        
+        // Add condition/then pairs (including elseif conditions)
+        for (let i = 0; i < conditions.length; i++) {
+            const condition = this.visit(conditions[i]);
+            const thenExpr = this.visit(expressions[i]);
+            ifArray.push(condition, thenExpr);
+        }
+        
+        // Add else part (last expression)
+        const elseExpr = this.visit(expressions[expressions.length - 1]);
+        ifArray.push(elseExpr);
+        
+        return { "if": ifArray };
+    }
+
     // ==================== IDENTIFIERS AND VARIABLES ====================
     
     /**

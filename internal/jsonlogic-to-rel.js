@@ -451,7 +451,12 @@ function convertLiteral(value) {
     }
     
     if (typeof value === 'string') {
-        // Escape quotes and wrap in quotes
+        // Check if this is a placeholder (starts and ends with braces)
+        if (value.startsWith('{') && value.endsWith('}') && value.length > 2) {
+            // This is a placeholder, return as-is without quotes
+            return value;
+        }
+        // Escape quotes and wrap in quotes for regular strings
         return `"${value.replace(/"/g, '\\"')}"`;
     }
     

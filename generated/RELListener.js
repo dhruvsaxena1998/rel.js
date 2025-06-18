@@ -347,6 +347,15 @@ export default class RELListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
+	// Enter a parse tree produced by RELParser#IfExpressionPrimary.
+	enterIfExpressionPrimary(ctx) {
+	}
+
+	// Exit a parse tree produced by RELParser#IfExpressionPrimary.
+	exitIfExpressionPrimary(ctx) {
+	}
+
+
 	// Enter a parse tree produced by RELParser#ParenthesizedExpression.
 	enterParenthesizedExpression(ctx) {
 	}

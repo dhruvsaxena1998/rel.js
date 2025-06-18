@@ -12,7 +12,7 @@ conditionalExpression:
 	)* ELSE conditionalExpression	# IfThenElse
 	| logicalOrExpression			# LogicalOr;
 
-// Logical OR (lowest precedence)
+// Logical OR
 logicalOrExpression:
 	logicalOrExpression OR logicalAndExpression	# OrExpression
 	| logicalAndExpression						# LogicalAnd;
@@ -73,6 +73,9 @@ primaryExpression:
 	| bareIdentifier						# BareIdentifierExpression
 	| literal								# LiteralExpression
 	| functionCall							# FunctionCallExpression
+	| IF logicalOrExpression THEN conditionalExpression (
+		ELSEIF logicalOrExpression THEN conditionalExpression
+	)* ELSE conditionalExpression			# IfExpressionPrimary
 	| LPAREN conditionalExpression RPAREN	# ParenthesizedExpression;
 
 // Bare identifier (for lambda expressions)

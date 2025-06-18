@@ -24,3 +24,7 @@ REL.js is a Rule Expression Language (REL) library that provides bidirectional c
 - Bidirectional conversion maintains semantic equivalence
 - Lambda expressions in array methods work correctly
 - Clean, maintainable code architecture
+
+# Scripts
+
+- To generate parser use `pnpm generate-parser`

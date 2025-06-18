@@ -34,10 +34,24 @@
 - **Cross-validation** - All generated REL expressions translate back successfully
 - **Placeholder tests** - 9 test cases covering all contexts (comparisons, arrays, conditionals, etc.)
 - **Validation tests** - 3 test cases for bare identifier error handling
+- **Grammar fixes** - Complex expressions with `if` statements now parse without parentheses
 
 ## 🔧 Recent Fixes
 
-### Lambda Expression Context (Latest Fix)
+### Grammar and Placeholder Issues (Latest Fix)
+**Problem 1**: Expression `@charge_code == {charge_code} and if {country} == 'All' then true else @country == {country}` failed to parse without parentheses
+**Problem 2**: `convertFromJsonLogic` wrapped placeholders in quotes (`{AGE}` → `"{AGE}"`)
+
+**Solution**:
+- Enhanced grammar to allow `if` expressions as primary expressions
+- Modified `convertLiteral()` to detect and preserve placeholder patterns
+- Added `visitIfExpressionPrimary()` visitor method
+
+**Result**:
+- Complex expressions with `if` statements now parse without parentheses ✅
+- Placeholders preserved in bidirectional conversion ✅
+
+### Lambda Expression Context (Previous Fix)
 **Problem**: Array method lambda expressions were generating incorrect variable references
 - `filter(@products, @price < 100)` ❌
 - `filter(@products, product.price < 100)` ✅
