@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REL.js Browser Compatibility Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .code {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>REL.js Browser Compatibility Test</h1>
+    <p>This page tests REL.js functionality in the browser using the UMD build.</p>
+    
+    <div id="test-results"></div>
+    
+    <!-- Load REL.js UMD build -->
+    <script src="../dist/index.umd.js"></script>
+    
+    <!-- Load json-logic-js for testing -->
+    <script src="https://unpkg.com/json-logic-js@2.0.5/logic.js"></script>
+    
+    <script>
+        const testResults = document.getElementById('test-results');
+        
+        function addTestResult(testName, success, message, code = null) {
+            const div = document.createElement('div');
+            div.className = `test-result ${success ? 'success' : 'error'}`;
+            
+            let html = `<h3>${testName}</h3><p>${message}</p>`;
+            if (code) {
+                html += `<div class="code">${code}</div>`;
+            }
+            
+            div.innerHTML = html;
+            testResults.appendChild(div);
+        }
+        
+        function runTests() {
+            console.log('Starting REL.js browser compatibility tests...');
+            
+            // Test 1: Check if REL is available globally
+            try {
+                if (typeof REL !== 'undefined' && REL.translate) {
+                    addTestResult(
+                        'Global REL Object',
+                        true,
+                        'REL.js is successfully loaded and available globally.',
+                        'typeof REL: ' + typeof REL
+                    );
+                } else {
+                    throw new Error('REL object not found or missing translate function');
+                }
+            } catch (error) {
+                addTestResult(
+                    'Global REL Object',
+                    false,
+                    'Failed to load REL.js: ' + error.message
+                );
+                return; // Stop further tests if REL is not available
+            }
+            
+            // Test 2: Basic translation
+            try {
+                const result = REL.translate('@age > 18');
+                if (result && result.jsonLogic && result.expression) {
+                    addTestResult(
+                        'Basic Translation',
+                        true,
+                        'Successfully translated a simple expression.',
+                        `Input: '@age > 18'<br>Output: ${JSON.stringify(result.jsonLogic, null, 2)}`
+                    );
+                } else {
+                    throw new Error('Invalid translation result structure');
+                }
+            } catch (error) {
+                addTestResult(
+                    'Basic Translation',
+                    false,
+                    'Failed to translate basic expression: ' + error.message
+                );
+            }
+            
+            // Test 3: Complex expression
+            try {
+                const complexExpr = '@user.role == "admin" and @user.isActive == true';
+                const result = REL.translate(complexExpr);
+                if (result && result.jsonLogic) {
+                    addTestResult(
+                        'Complex Expression',
+                        true,
+                        'Successfully translated a complex expression with nested properties.',
+                        `Input: '${complexExpr}'<br>Output: ${JSON.stringify(result.jsonLogic, null, 2)}`
+                    );
+                } else {
+                    throw new Error('Invalid complex translation result');
+                }
+            } catch (error) {
+                addTestResult(
+                    'Complex Expression',
+                    false,
+                    'Failed to translate complex expression: ' + error.message
+                );
+            }
+            
+            // Test 4: JSONLogic integration (if available)
+            if (typeof jsonLogic !== 'undefined') {
+                try {
+                    const relExpr = '@age >= 21 and @hasLicense == true';
+                    const translated = REL.translate(relExpr);
+                    
+                    const testData = {
+                        age: 25,
+                        hasLicense: true
+                    };
+                    
+                    const result = jsonLogic.apply(translated.jsonLogic, testData);
+                    
+                    if (result === true) {
+                        addTestResult(
+                            'JSONLogic Integration',
+                            true,
+                            'Successfully integrated with JSONLogic for rule evaluation.',
+                            `Rule: '${relExpr}'<br>Data: ${JSON.stringify(testData)}<br>Result: ${result}`
+                        );
+                    } else {
+                        throw new Error('Unexpected JSONLogic result: ' + result);
+                    }
+                } catch (error) {
+                    addTestResult(
+                        'JSONLogic Integration',
+                        false,
+                        'Failed JSONLogic integration test: ' + error.message
+                    );
+                }
+            } else {
+                addTestResult(
+                    'JSONLogic Integration',
+                    false,
+                    'JSONLogic library not available for integration testing.'
+                );
+            }
+            
+            // Test 5: Error handling
+            try {
+                const invalidExpr = '@age > > 18'; // Invalid syntax
+                try {
+                    REL.translate(invalidExpr);
+                    addTestResult(
+                        'Error Handling',
+                        false,
+                        'Expected error for invalid syntax, but translation succeeded.'
+                    );
+                } catch (relError) {
+                    if (relError.name === 'RELError' || relError.message.includes('Invalid')) {
+                        addTestResult(
+                            'Error Handling',
+                            true,
+                            'Properly handles invalid syntax with appropriate error.',
+                            `Error: ${relError.message}`
+                        );
+                    } else {
+                        throw relError;
+                    }
+                }
+            } catch (error) {
+                addTestResult(
+                    'Error Handling',
+                    false,
+                    'Unexpected error during error handling test: ' + error.message
+                );
+            }
+            
+            // Test 6: convertFromJsonLogic (if available)
+            if (REL.convertFromJsonLogic) {
+                try {
+                    const jsonLogicObj = {
+                        "and": [
+                            {">=": [{"var": "age"}, 21]},
+                            {"==": [{"var": "hasLicense"}, true]}
+                        ]
+                    };
+                    
+                    const relExpression = REL.convertFromJsonLogic(jsonLogicObj);
+                    
+                    if (typeof relExpression === 'string' && relExpression.includes('@age')) {
+                        addTestResult(
+                            'Reverse Conversion',
+                            true,
+                            'Successfully converted JSONLogic back to REL expression.',
+                            `JSONLogic: ${JSON.stringify(jsonLogicObj, null, 2)}<br>REL: '${relExpression}'`
+                        );
+                    } else {
+                        throw new Error('Invalid reverse conversion result');
+                    }
+                } catch (error) {
+                    addTestResult(
+                        'Reverse Conversion',
+                        false,
+                        'Failed to convert JSONLogic to REL: ' + error.message
+                    );
+                }
+            } else {
+                addTestResult(
+                    'Reverse Conversion',
+                    false,
+                    'convertFromJsonLogic function not available in UMD build.'
+                );
+            }
+            
+            console.log('Browser compatibility tests completed.');
+        }
+        
+        // Run tests when page loads
+        window.addEventListener('load', runTests);
+    </script>
+</body>
+</html>

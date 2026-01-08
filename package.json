@@ -1,17 +1,60 @@
 {
   "name": "rel.js",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A powerful Domain Specific Language (DSL) for writing human-readable rule expressions that compile to JSONLogic",
+  "main": "dist/index.cjs",
+  "module": "dist/index.esm.js",
+  "browser": "dist/index.umd.js",
+  "types": "dist/index.d.ts",
   "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "browser": "./dist/index.umd.js",
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.esm.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "generate-parser": "rimraf generated && antlr4 -Dlanguage=JavaScript -visitor -listener -o generated ./REL.g4",
     "test": "vitest run",
-    "test-run": "node test.js",
-    "build": "esbuild index.js --platform=node --bundle --format=esm --outdir=dist"
+    "test:coverage": "vitest run --coverage",
+    "test:browser": "node scripts/serve-browser-test.js",
+    "test:dist": "vitest run test/dist-integration.test.js",
+    "test:all": "npm run test && npm run test:dist",
+    "build": "npm run build:clean && npm run build:esm && npm run build:cjs && npm run build:umd && npm run build:types",
+    "build:clean": "rimraf dist",
+    "build:esm": "esbuild index.js --platform=node --conditions=node --bundle --format=esm --outfile=dist/index.esm.js --sourcemap --external:antlr4 --external:json-logic-js",
+    "build:cjs": "esbuild index.js --platform=node --conditions=node --bundle --format=cjs --outfile=dist/index.cjs --sourcemap --external:antlr4 --external:json-logic-js",
+    "build:umd": "esbuild index.js --platform=browser --bundle --format=iife --global-name=REL --outfile=dist/index.umd.js --sourcemap --external:json-logic-js",
+    "build:types": "node scripts/generate-types.js",
+    "build:dev": "npm run build:esm -- --define:process.env.NODE_ENV=\"development\"",
+    "build:prod": "npm run build && npm run build:minify",
+    "build:minify": "esbuild dist/index.esm.js --minify --outfile=dist/index.esm.min.js --sourcemap && esbuild dist/index.cjs --minify --outfile=dist/index.min.cjs --sourcemap && esbuild dist/index.umd.js --minify --outfile=dist/index.umd.min.js --sourcemap",
+    "prepublishOnly": "npm run test && npm run build:prod",
+    "prepack": "npm run build:prod"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "dsl",
+    "domain-specific-language",
+    "jsonlogic",
+    "rules-engine",
+    "business-logic",
+    "expression-language",
+    "rule-expression",
+    "antlr",
+    "parser",
+    "compiler",
+    "javascript",
+    "typescript"
+  ],
+  "author": "Dhruv Saxena <dhruvsaxena1998@gmail.com>",
   "license": "ISC",
   "packageManager": "pnpm@10.10.0",
   "dependencies": {
