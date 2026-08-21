@@ -1,6 +1,6 @@
 // Generated from ./REL.g4 by ANTLR 4.13.2
 // jshint ignore: start
-import antlr4 from 'antlr4';
+import antlr4 from '../internal/antlr4.js';
 
 
 const serializedATN = [4,0,55,679,6,-1,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,
@@ -328,6 +328,5 @@ RELLexer.PLACEHOLDER = 52;
 RELLexer.WS = 53;
 RELLexer.LINE_COMMENT = 54;
 RELLexer.BLOCK_COMMENT = 55;
-
 
 

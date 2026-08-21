@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import { translate } from './translator.js';
+import { translate } from '../index.js';
 
-describe('REL Translator - Comprehensive Integration Tests', () => {
+describe('translate', () => {
     
     describe('Basic Data Types', () => {
         it('should translate numbers', () => {

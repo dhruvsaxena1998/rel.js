@@ -8,9 +8,13 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
       exclude: [
-        'node_modules/',
-        'generated/',
-        'coverage/',
+        '**/node_modules/**',
+        '**/*.d.ts',
+        'dist/**',
+        'generated/**',
+        'coverage/**',
+        'scripts/**',
+        'internal/_visitor.js',
         '**/*.test.js',
         '**/*.config.js'
       ]

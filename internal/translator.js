@@ -1,7 +1,8 @@
-import antlr4 from 'antlr4';
+import antlr4 from './antlr4.js';
 import RELLexer from '../generated/RELLexer.js';
 import RELParser from '../generated/RELParser.js';
 import JSONLogicVisitor from './jsonlogic.visitor.js'
+import { RELError } from './rel-error.js';
 
 /**
  * Main translation function
@@ -12,6 +13,10 @@ import JSONLogicVisitor from './jsonlogic.visitor.js'
  * }} - Translation result with JSONLogic schema
  */
 export function translate(expression) {
+    if (typeof expression !== 'string') {
+        throw new RELError('REL expression must be a string', { expression });
+    }
+
     try {
         // Create input stream
         const inputStream = new antlr4.InputStream(expression);
@@ -28,11 +33,11 @@ export function translate(expression) {
         // Custom error listener for detailed error reporting
         class RELErrorListener extends antlr4.error.ErrorListener {
             syntaxError(recognizer, offendingSymbol, line, column, msg, e) {
-                const error = new Error(`Invalid expression: ${msg}`);
-                error.name = 'RELError';
-                error.location = { line, column };
-                error.expression = expression;
-                throw error;
+                throw new RELError(`Invalid expression: ${msg}`, {
+                    expression,
+                    location: { line, column },
+                    cause: e
+                });
             }
         }
 
@@ -49,12 +54,10 @@ export function translate(expression) {
         const visitor = new JSONLogicVisitor();
         const jsonLogic = visitor.visit(tree);
 
-        const result = {
-            expression: expression,
-            jsonLogic: jsonLogic
+        return {
+            expression,
+            jsonLogic
         };
-
-        return result;
 
     } catch (error) {
         if (error.name === 'RELError') {
@@ -62,10 +65,10 @@ export function translate(expression) {
         }
 
         // Wrap unexpected errors
-        const relError = new Error(`Translation failed: ${error.message}`);
-        relError.name = 'RELError';
-        relError.location = { line: 1, column: 0 };
-        relError.expression = expression;
-        throw relError;
+        throw new RELError(`Translation failed: ${error.message}`, {
+            expression,
+            location: { line: 1, column: 0 },
+            cause: error
+        });
     }
 }

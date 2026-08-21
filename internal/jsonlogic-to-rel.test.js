@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { convertFromJsonLogic, jsonLogicToRel } from './jsonlogic-to-rel.js';
+import { convertFromJsonLogic } from '../index.js';
+import { jsonLogicToRel } from './jsonlogic-to-rel.js';
 
 describe('JSONLogic to REL Conversion', () => {
     
