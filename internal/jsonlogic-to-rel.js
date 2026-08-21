@@ -1,3 +1,5 @@
+import { RELError } from './rel-error.js';
+
 /**
  * JSONLogic to REL Expression Converter
  * 
@@ -530,7 +532,13 @@ export function convertFromJsonLogic(jsonLogic) {
         // Use standard conversion
         return jsonLogicToRel(jsonLogic);
     } catch (error) {
-        throw new Error(`Failed to convert JSONLogic to REL: ${error.message}`);
+        if (error instanceof RELError) {
+            throw error;
+        }
+
+        throw new RELError(`Failed to convert JSONLogic to REL: ${error.message}`, {
+            cause: error
+        });
     }
 }
 

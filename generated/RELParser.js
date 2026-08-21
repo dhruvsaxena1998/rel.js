@@ -1,6 +1,6 @@
 // Generated from ./REL.g4 by ANTLR 4.13.2
 // jshint ignore: start
-import antlr4 from 'antlr4';
+import antlr4 from '../internal/antlr4.js';
 import RELListener from './RELListener.js';
 import RELVisitor from './RELVisitor.js';
 
